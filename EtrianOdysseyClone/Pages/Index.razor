@@ -1,44 +1,53 @@
 ﻿@using EtrianOdysseyClone.Pages.Overworld
+@using EtrianOdysseyClone.Data
+@inject GameSession SessionInfo
 @page "/"
 
-    <head>
-        This is a Head
-    </head>
+<head>
+    This is a Head
+</head>
 
-    <body style="border:gray; border-width:2px; border-style:solid;">
-       @SelectComponent()
-    </body>
-    <button class="rounded-md bg-blue-400 p-4 m-10 border-blue-900 shadow-sm" @onclick="SwitchComponent">Example Button</button>
+<body style="border:gray; border-width:2px; border-style:solid;">
+    @SelectComponent()
+</body>
+<button class="rounded-md bg-blue-400 p-4 m-10 border-blue-900 shadow-sm" @onclick="SwitchComponent">Example Button</button>
 
-    @code {
-        bool isSwitched = true;
+@code {
 
+    private void SwitchComponent()
+    {
+        if (SessionInfo.CurrentLocation == OverworldLocation.MainMenu)
+            SessionInfo.CurrentLocation = OverworldLocation.Bar;
+        else
+            SessionInfo.CurrentLocation = OverworldLocation.MainMenu;
 
-        private void SwitchComponent()
-        {
-            isSwitched = isSwitched ? false : true;
-            StateHasChanged();
-        }
-
-        private RenderFragment SelectComponent()
-        {
-            RenderFragment componentToDisplay;
-            if (isSwitched)
-            {
-                componentToDisplay = b =>
-                {
-                    b.OpenComponent(1, typeof(MenuComponent));
-                    b.CloseComponent();
-                };
-            }
-            else
-            {
-                componentToDisplay = b =>
-                {
-                    b.OpenComponent(1, typeof(HotswappingImage));
-                    b.CloseComponent();
-                };
-            }
-            return componentToDisplay;
-        }
+        StateHasChanged();
     }
+
+    private RenderFragment SelectComponent()
+    {
+        RenderFragment componentToDisplay = null;
+
+        switch (SessionInfo.CurrentLocation)
+        {
+            case OverworldLocation.MainMenu:
+                componentToDisplay = RenderComponent(componentToDisplay, typeof(MenuComponent));
+                break;
+            case OverworldLocation.Bar:
+                componentToDisplay = RenderComponent(componentToDisplay, typeof(HotswappingImage));
+                break;
+        }
+
+        return componentToDisplay;
+    }
+
+    private RenderFragment RenderComponent(RenderFragment componentToDisplay, Type componentType)
+    {
+        componentToDisplay = b =>
+        {
+            b.OpenComponent(1, componentType);
+            b.CloseComponent();
+        };
+        return componentToDisplay;
+    }
+}
