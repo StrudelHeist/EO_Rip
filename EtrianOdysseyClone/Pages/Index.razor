@@ -1,23 +1,44 @@
 ﻿@using EtrianOdysseyClone.Pages.Overworld
 @page "/"
 
-    <title style="border-width:0px;">
-        Hello, world!
-    </title>
     <head>
         This is a Head
     </head>
-    <header>
-        This is a Header
-    </header>
-    <h1?>
-        This is h1?
-    </h1?>
-    <h1>
-        This is h1
-    </h1>
-    Welcome to your new app.
+
     <body style="border:gray; border-width:2px; border-style:solid;">
-        <MenuComponent></MenuComponent>
+       @SelectComponent()
     </body>
-    <button class="rounded-md bg-blue-400 p-4 m-10 border-blue-900 shadow-sm">Example Button</button>
+    <button class="rounded-md bg-blue-400 p-4 m-10 border-blue-900 shadow-sm" @onclick="SwitchComponent">Example Button</button>
+
+    @code {
+        bool isSwitched = true;
+
+
+        private void SwitchComponent()
+        {
+            isSwitched = isSwitched ? false : true;
+            StateHasChanged();
+        }
+
+        private RenderFragment SelectComponent()
+        {
+            RenderFragment componentToDisplay;
+            if (isSwitched)
+            {
+                componentToDisplay = b =>
+                {
+                    b.OpenComponent(1, typeof(MenuComponent));
+                    b.CloseComponent();
+                };
+            }
+            else
+            {
+                componentToDisplay = b =>
+                {
+                    b.OpenComponent(1, typeof(HotswappingImage));
+                    b.CloseComponent();
+                };
+            }
+            return componentToDisplay;
+        }
+    }
