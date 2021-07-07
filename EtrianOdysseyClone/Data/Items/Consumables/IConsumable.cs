@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EtrianOdysseyClone.Data.Jobs
+namespace EtrianOdysseyClone.Data.Items.Consumables
 {
-    // Elemental Attacker
-    public class Mage : IJob
+    public interface IConsumable : IItem
     {
-
     }
 }

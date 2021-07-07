@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace EtrianOdysseyClone.Data
 {
     public class Party
     {
+        public List<PartyMember> Members { get; set; }
     }
 }
