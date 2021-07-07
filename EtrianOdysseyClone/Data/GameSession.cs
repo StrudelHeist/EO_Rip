@@ -14,7 +14,7 @@ namespace EtrianOdysseyClone.Data
 
         public GameSession()
         {
-            CurrentLocation = OverworldLocation.MainMenu;
+            CurrentLocation = OverworldLocation.Guild;
         }
         // TODO: Map data
 

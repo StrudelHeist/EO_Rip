@@ -1,5 +1,6 @@
 ﻿@using EtrianOdysseyClone.Pages.Overworld
 @using EtrianOdysseyClone.Data
+@using EtrianOdysseyClone.Shared
 @inject GameSession SessionInfo
 @page "/"
 
@@ -16,12 +17,12 @@
 
     private void SwitchComponent()
     {
-        if (SessionInfo.CurrentLocation == OverworldLocation.MainMenu)
+        if (SessionInfo.CurrentLocation == OverworldLocation.Guild)
             SessionInfo.CurrentLocation = OverworldLocation.Bar;
         else
-            SessionInfo.CurrentLocation = OverworldLocation.MainMenu;
+            SessionInfo.CurrentLocation = OverworldLocation.Guild;
 
-        StateHasChanged();
+        //StateHasChanged();
     }
 
     private RenderFragment SelectComponent()
@@ -31,10 +32,23 @@
         switch (SessionInfo.CurrentLocation)
         {
             case OverworldLocation.MainMenu:
-                componentToDisplay = RenderComponent(componentToDisplay, typeof(MenuComponent));
+                componentToDisplay = RenderComponent(componentToDisplay, typeof(NavMenu));
                 break;
+
             case OverworldLocation.Bar:
-                componentToDisplay = RenderComponent(componentToDisplay, typeof(HotswappingImage));
+                componentToDisplay = RenderComponent(componentToDisplay, typeof(Bar));
+                break;
+
+            case OverworldLocation.Guild:
+                componentToDisplay = RenderComponent(componentToDisplay, typeof(Guild));
+                break;
+
+            case OverworldLocation.Town:
+                componentToDisplay = RenderComponent(componentToDisplay, typeof(Town));
+                break;
+
+            case OverworldLocation.Dungeon:
+                componentToDisplay = RenderComponent(componentToDisplay, typeof(Bar));
                 break;
         }
 
