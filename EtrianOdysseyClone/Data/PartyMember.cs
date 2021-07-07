@@ -16,6 +16,8 @@ namespace EtrianOdysseyClone.Data
 
         public IJob Job { get; set; }
 
+        public int ExpToNextLevelUp { get; set; }
+
         public int BaseHP { get; set; }
         public int BaseTP { get; set; }
 
@@ -24,7 +26,7 @@ namespace EtrianOdysseyClone.Data
         public int BaseMagicStrength { get; set; }
         public int BaseMagicDefense { get; set; }
         public int BaseSpeed { get; set; }
-        public int BaseLuck { get; set; }
+        public int BaseLuck { get; set; }           // Use for crit calculation
 
         public int ActualHP { get; set; }
         public int ActualTP { get; set; }
@@ -61,6 +63,68 @@ namespace EtrianOdysseyClone.Data
                     debuffMods += debuff.DefenseModifier;
 
                 return BaseDefense + armorMods + buffMods + debuffMods;
+            }
+        }
+        public int ActualMagicStrength
+        {
+            get
+            {
+                int weaponMods = 0;
+                foreach (IWeapon weapon in EquippedWeapons)
+                    weaponMods += weapon.MagicAttackModifier;
+                int buffMods = 0;
+                foreach (IBuff buff in Buffs)
+                    buffMods += buff.MagicStrengthModifier;
+                int debuffMods = 0;
+                foreach (IDebuff debuff in Debuffs)
+                    debuffMods += debuff.MagicStrengthModifier;
+
+                return BaseMagicStrength + weaponMods + buffMods + debuffMods;
+            }
+        }
+        public int ActualMagicDefense
+        {
+            get
+            {
+                int armorMod = 0;
+                foreach (IArmor armor in EquippedArmor)
+                    armorMod += armor.MagicDefenseModifier;
+                int buffMod = 0;
+                foreach (IBuff buff in Buffs)
+                    buffMod += buff.MagicDefenseModifier;
+                int debuffMod = 0;
+                foreach (IDebuff debuff in Debuffs)
+                    debuffMod += debuff.MagicDefenseModifier;
+
+                return BaseMagicDefense + armorMod + buffMod + debuffMod;
+            }
+        }
+        public int ActualSpeed
+        {
+            get
+            {
+                int buffMods = 0;
+                foreach (IBuff buff in Buffs)
+                    buffMods += buff.SpeedModifier;
+                int debuffMods = 0;
+                foreach (IDebuff debuff in Debuffs)
+                    debuffMods += debuff.SpeedModifier;
+
+                return BaseSpeed + buffMods + debuffMods;
+            }
+        }
+        public int ActualLuck
+        {
+            get
+            {
+                int buffMods = 0;
+                foreach (IBuff buff in Buffs)
+                    buffMods += buff.LuckModifier;
+                int debuffMods = 0;
+                foreach (IDebuff debuff in Debuffs)
+                    debuffMods += debuff.LuckModifier;
+
+                return BaseLuck + buffMods + debuffMods;
             }
         }
 
