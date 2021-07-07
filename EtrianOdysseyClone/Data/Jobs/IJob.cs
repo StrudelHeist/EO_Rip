@@ -9,6 +9,16 @@ namespace EtrianOdysseyClone.Data.Jobs
     {
         // TODO: List of skills for job
         // TODO: Level up method (different classes/jobs should level up differently)
-        // TODO: Base stats per job
+
+        // Starting stats per job
+        public int StartingHP { get; set; }
+        public int StartingTP { get; set; }
+
+        public int StartingStrength { get; set; }
+        public int StartingMagicStrength { get; set; }
+        public int StartingDefense { get; set; }
+        public int StartingMagicDefense { get; set; }
+        public int StartingSpeed { get; set; }
+        public int StartingLuck { get; set; }
     }
 }
