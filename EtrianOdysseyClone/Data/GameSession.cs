@@ -9,7 +9,7 @@ namespace EtrianOdysseyClone.Data
     {
         public int Monies { get; set; }
         
-        // TODO: Party
+        public Party Party { get; set; }
 
         // TODO: Map data
 

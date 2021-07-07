@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace EtrianOdysseyClone.Data.Jobs
 {
-    // Elemental Attacker
-    public class Mage : IJob
+    // Glass Cannon \ Damage Dealer
+    public class Bushi : IJob
     {
-
     }
 }
