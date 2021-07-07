@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Overworld\**" />
+    <Content Remove="Data\Overworld\**" />
+    <EmbeddedResource Remove="Data\Overworld\**" />
+    <None Remove="Data\Overworld\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Data\Items\Armor\" />
     <Folder Include="Data\Items\Consumables\" />
     <Folder Include="Data\Items\Weapons\" />
