@@ -38,7 +38,7 @@ namespace EtrianOdysseyClone.Data.Maps
             // Set current cell information
             MapLayout[CurrentCellIdx].PartyHere = true;
             MapLayout[CurrentCellIdx].Explored = true;
-            UpdateVisionRange();
+            UpdateVisionRange(true);
         }
 
         public void DigestMapFile(string pathToMapFile)
@@ -105,7 +105,7 @@ namespace EtrianOdysseyClone.Data.Maps
 
             // Have party leave previous cell
             MapLayout[CurrentCellIdx].PartyHere = false;
-            // --> Clear out old vision
+            UpdateVisionRange(false);
 
             // Update position and cell
             XPosition = newXPosition;
@@ -113,7 +113,7 @@ namespace EtrianOdysseyClone.Data.Maps
             MapLayout[CurrentCellIdx].Explored = true;
 
             // Add cells to vision range
-            UpdateVisionRange();
+            UpdateVisionRange(true);
         }
         private void MoveY(int increment)
         {
@@ -128,6 +128,7 @@ namespace EtrianOdysseyClone.Data.Maps
 
             // Have party leave previous cell
             MapLayout[CurrentCellIdx].PartyHere = false;
+            UpdateVisionRange(false);
 
             // Update position and cell
             YPosition = newYPosition;
@@ -135,47 +136,87 @@ namespace EtrianOdysseyClone.Data.Maps
             MapLayout[CurrentCellIdx].Explored = true;
 
             // Add cells to vision range
-            UpdateVisionRange();
+            UpdateVisionRange(true);
         }
 
-        private void UpdateVisionRange()
+        private void UpdateVisionRange(bool visible)
         {
-            // --> Top left
+            // Top left
             int topLeftY = YPosition - 1;
             int topLeftX = XPosition - 1;
             if (topLeftY >= 0 && topLeftX >= 0)
-                MapLayout[(topLeftY * 10) + topLeftX].InVision = true;
-            // --> Top
+            {
+                int idx = (topLeftY * 10) + topLeftX;
+                MapLayout[idx].InVision = visible;
+                if (MapLayout[idx].SpaceType == CellType.WALL)
+                    MapLayout[idx].Explored = true;
+            }
+            // Top
             int topY = YPosition - 1;
             if (topY >= 0)
-                MapLayout[(topY * 10) + XPosition].InVision = true;
-            // --> Top Right
+            {
+                int idx = (topY * 10) + XPosition;
+                MapLayout[idx].InVision = visible;
+                if (MapLayout[idx].SpaceType == CellType.WALL)
+                    MapLayout[idx].Explored = true;
+            }
+            // Top Right
             int topRightY = YPosition - 1;
             int topRightX = XPosition + 1;
             if (topRightY >= 0 && topRightX <= 9)
-                MapLayout[(topRightY * 10) + topRightX].InVision = true;
-            // --> Right
+            {
+                int idx = (topRightY * 10) + topRightX;
+                MapLayout[idx].InVision = visible;
+                if (MapLayout[idx].SpaceType == CellType.WALL)
+                    MapLayout[idx].Explored = true;
+            }
+            // Right
             int rightX = XPosition + 1;
             if (rightX <= 9)
-                MapLayout[(YPosition * 10) + rightX].InVision = true;
-            // --> Bottom Right
+            {
+                int idx = (YPosition * 10) + rightX;
+                MapLayout[idx].InVision = visible;
+                if (MapLayout[idx].SpaceType == CellType.WALL)
+                    MapLayout[idx].Explored = true;
+            }
+            // Bottom Right
             int bottomRightX = XPosition + 1;
             int bottomRightY = YPosition + 1;
             if (bottomRightX <= 9 && bottomRightY <= 9)
-                MapLayout[(bottomRightY * 10) + bottomRightX].InVision = true;
-            // --> Bottom
+            {
+                int idx = (bottomRightY * 10) + bottomRightX;
+                MapLayout[idx].InVision = visible;
+                if (MapLayout[idx].SpaceType == CellType.WALL)
+                    MapLayout[idx].Explored = true;
+            }
+            // Bottom
             int bottomY = YPosition + 1;
             if (bottomY <= 9)
-                MapLayout[(bottomY * 10) + XPosition].InVision = true;
-            // --> Bottom Left
+            {
+                int idx = (bottomY * 10) + XPosition;
+                MapLayout[idx].InVision = visible;
+                if (MapLayout[idx].SpaceType == CellType.WALL)
+                    MapLayout[idx].Explored = true;
+            }
+            // Bottom Left
             int bottomLeftY = YPosition + 1;
             int bottomLeftX = XPosition - 1;
             if (bottomLeftY <= 9 && bottomLeftX >= 0)
-                MapLayout[(bottomLeftY * 10) + bottomLeftX].InVision = true;
-            // --> Left
+            {
+                int idx = (bottomLeftY * 10) + bottomLeftX;
+                MapLayout[idx].InVision = visible;
+                if (MapLayout[idx].SpaceType == CellType.WALL)
+                    MapLayout[idx].Explored = true;
+            }
+            // Left
             int leftX = XPosition - 1;
             if (leftX >= 0)
-                MapLayout[(YPosition * 10) + leftX].InVision = true;
+            {
+                int idx = (YPosition * 10) + leftX;
+                MapLayout[idx].InVision = visible;
+                if (MapLayout[idx].SpaceType == CellType.WALL)
+                    MapLayout[idx].Explored = true;
+            }
         }
     }
 }
