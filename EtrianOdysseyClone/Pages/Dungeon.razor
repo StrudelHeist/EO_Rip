@@ -1,153 +1,48 @@
 ﻿@page "/dungeon"
 
+@using EtrianOdysseyClone.Data
+@using EtrianOdysseyClone.Data.Maps 
+
+@inject GameSession GameData   
+
 <div class="p-5">
     <div class="grid grid-cols-10 gap-1 border-black border-2 p-1">
-        <!-- Top Row -->
-        <div class="bg-green-700 flex justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 text-white" viewBox="0 0 24 24" stroke="currentcolor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="{2}" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-            </svg>
-        </div>
-        <div class="bg-green-500"></div>
-        <div class="bg-green-200"></div>
-        <div class="bg-green-200"></div>
-        <div class="bg-green-200"></div>
-        <div class="bg-green-200"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-
-        <!-- 2nd Row -->
-        <div class="bg-green-500"></div>
-        <div class="bg-gray-800"></div>
-        <div class="bg-gray-500"></div>
-        <div class="bg-gray-500"></div>
-        <div class="bg-green-200"></div>
-        <div class="bg-gray-500"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300 h-10"></div>
-
-        <!-- 3rd Row -->
-        <div class="bg-green-200"></div>
-        <div class="bg-gray-500"></div>
-        <div class="bg-green-200 flex justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-10" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="{2}" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
-            </svg>
-        </div>
-        <div class="bg-green-200"></div>
-        <div class="bg-green-200"></div>
-        <div class="bg-gray-500"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300 h-10"></div>
-
-        <!-- 4th Row -->
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300 h-10"></div>
-
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300 h-10"></div>
-
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300 h-10"></div>
-
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300 h-10"></div>
-
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300 h-10"></div>
-
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300 h-10"></div>
-
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300"></div>
-        <div class="border border-gray-300 h-10"></div>
+    @foreach (var mapCell in GameData.CurrentFloor.MapLayout)
+    {
+    <div class="@BuildStyleFromCell(mapCell)">
+        @if (mapCell.PartyHere)
+        {
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 text-white" viewBox="0 0 24 24" stroke="currentcolor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="{2}" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+        </svg>
+        }
+    </div>
+    }
     </div>
 </div>
 
 <div class="flex justify-center pt-5">
     <div class="grid grid-cols-3 grid-rows-3 w-40">
         <div></div>
-        <button type="button" class="bg-blue-200 rounded-full p-1 hover:bg-blue-400">
+        <button type="button" @onclick="UpButtonClick" class="bg-blue-200 rounded-full p-1 hover:bg-blue-400">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
             </svg>
         </button>
         <div></div>
-        <button type="button" class="bg-blue-200 rounded-full p-1 hover:bg-blue-400">
+        <button type="button" @onclick="LeftButtonClick" class="bg-blue-200 rounded-full p-1 hover:bg-blue-400">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
         </button>
         <div></div>
-        <button type="button" class="bg-blue-200 rounded-full p-1 hover:bg-blue-400">
+        <button type="button" @onclick="RightButtonClick" class="bg-blue-200 rounded-full p-1 hover:bg-blue-400">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
         </button>
         <div></div>
-        <button type="button" class="bg-blue-200 rounded-full p-1 hover:bg-blue-400">
+        <button type="button" @onclick="DownButtonClick" class="bg-blue-200 rounded-full p-1 hover:bg-blue-400">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
             </svg>
@@ -157,5 +52,46 @@
 </div>
 
 @code {
+    public void UpButtonClick()
+    {
+        GameData.CurrentFloor.MoveUp();
+    }
+    public void LeftButtonClick()
+    {
+        GameData.CurrentFloor.MoveLeft();
+    }
+    public void RightButtonClick()
+    {
+        GameData.CurrentFloor.MoveRight();
+    }
+    public void DownButtonClick()
+    {
+        GameData.CurrentFloor.MoveDown();
+    }
 
+    public string BuildStyleFromCell(MapCell cell)
+    {
+        if (cell.Explored || cell.InVision)
+        {
+            if (cell.PartyHere)
+            {
+                return "bg-green-700 flex justify-center";
+            }
+            else
+            {
+                if (cell.SpaceType == CellType.WALL)
+                {
+                    return "bg-gray-500 flex justify-center h-10";
+                }
+                else
+                {
+                    return "bg-green-200 flex justify-center h-10";
+                }
+            }
+        }
+        else
+        {
+            return "border border-gray-300 flex justify-center h-10";
+        }
+    }
 }

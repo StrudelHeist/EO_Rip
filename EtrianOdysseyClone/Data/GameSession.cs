@@ -1,8 +1,6 @@
-﻿using System;
+﻿using EtrianOdysseyClone.Data.Maps;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace EtrianOdysseyClone.Data
 {
@@ -27,8 +25,16 @@ namespace EtrianOdysseyClone.Data
         public GameSession()
         {
             CurrentLocation = OverworldLocation.Guild;
+
+            Maps = new List<DungeonMap>();
+            Maps.Add(new Floor1());
+
+            CurrentFloor = Maps[0];
         }
-        // TODO: Map data
+
+        // Map data
+        public DungeonMap CurrentFloor { get; set; }
+        public List<DungeonMap> Maps { get; set; }
 
         // TODO: Quest data
     }
