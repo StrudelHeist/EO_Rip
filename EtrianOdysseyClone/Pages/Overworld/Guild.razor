@@ -1,21 +1,34 @@
 ﻿@using EtrianOdysseyClone.Pages.Tools
+@using EtrianOdysseyClone.Data
+@inject GameSession SessionInfo
 
-<h3>Guild</h3>
-<img src="/Images/Guild.jpg" asp-append-version="true" />
-<PrimarySideMenu OptionNames="_menuOptions" OptionSelected="@OnMenuSelection"></PrimarySideMenu>
-<label>@_selectedOption</label>
+<div class="flex flex-row">
+    <div>
+        <PrimarySideMenu OptionNames="_menuOptions" OptionSelected="@OnMenuSelection"></PrimarySideMenu>
+    </div>
+    <div>
+        <h3>Guild</h3>
+        <img src="/Images/Guild.jpg" asp-append-version="true" />
+        <label>@_selectedOption</label>
+    </div>
+</div>
+    @code {
+        private List<string> _menuOptions;
+        private string _selectedOption;
 
-@code {
-    private List<string> _menuOptions;
-    private string _selectedOption;
+        protected override void OnInitialized()
+        {
+            _menuOptions = new List<string>() { "Register", "Organize", "Formation", "Leave" };
+        }
 
-    protected override void OnInitialized()
-    {
-        _menuOptions = new List<string>() { "Register", "Organize", "Formation", "Leave" };
+        private void OnMenuSelection(string selectedOption)
+        {
+            _selectedOption = selectedOption;
+            switch (selectedOption)
+            {
+                case "Leave":
+                    SessionInfo.CurrentLocation = OverworldLocation.Town;
+                    break;
+            }
+        }
     }
-
-    private void OnMenuSelection(string selectedOption)
-    {
-        _selectedOption = selectedOption;
-    }
-}
