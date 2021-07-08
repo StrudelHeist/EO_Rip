@@ -1,0 +1,18 @@
+﻿<h3>PrimarySideMenu</h3>
+<body>
+    @foreach (var option in OptionNames)
+    {
+        <button @onclick="() => OnOptionSelected(option)">@option</button>
+    }
+</body>
+@code {
+    [Parameter]
+    public List<string> OptionNames { get; set; }
+
+    [Parameter]
+    public EventCallback<string> OptionSelected { get; set; }
+    private Task OnOptionSelected(string selectedOption)
+    {
+        return OptionSelected.InvokeAsync(selectedOption);
+    }
+}
