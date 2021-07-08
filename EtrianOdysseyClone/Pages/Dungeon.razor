@@ -1,35 +1,85 @@
 ﻿@page "/dungeon" 
 
 <div class="p-5 grid grid-cols-10">
-    <div class="border border-black border-r-0 bg-blue-600 flex justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-10" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-        </svg>
+    <!-- Top Row -->
+    <div class="border-t border-black">
+        <div class="border-l border-black bg-blue-600 flex justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+        </div>
+        <div class="border-b border-blue-100"></div>
     </div>
-    <div class="border border-black border-r-0 bg-blue-300"></div>
-    <div class="border border-black border-r-0"></div>
-    <div class="border border-black border-r-0"></div>
-    <div class="border border-black border-r-0"></div>
-    <div class="border border-black border-r-0"></div>
-    <div class="border border-black border-r-0"></div>
-    <div class="border border-black border-r-0"></div>
-    <div class="border border-black border-r-0"></div>
-    <div class="border border-black h-10"></div>
-    <div class="border border-black border-t-0 border-r-0 bg-blue-300"></div>
-    <div class="border border-black border-t-0 border-r-0 bg-blue-300"></div>
-    <div class="border border-black border-t-0 border-r-0"></div>
-    <div class="border border-black border-t-0 border-r-0"></div>
-    <div class="border border-black border-t-0 border-r-0"></div>
-    <div class="border border-black border-t-0 border-r-0"></div>
+    <div class="bg-blue-300">
+        <div class="border-t border-black"></div>
+        <div class="border-l border-blue-100 h-10"></div>
+        <div class="border-b border-blue-100"></div>
+    </div>
+    <div>
+        <div class="border-t border-black"></div>
+        <div class="border-l border-blue-100 h-10"></div>
+        <div class="border-b border-gray-300"></div>
+    </div>
+    <div>
+        <div class="border-t border-black"></div>
+        <div class="border-l border-gray-300 h-10"></div>
+        <div class="border-b border-gray-300"></div>
+    </div>
+    <div>
+        <div class="border-t border-black"></div>
+        <div class="border-l border-gray-300 h-10"></div>
+        <div class="border-b border-gray-300"></div>
+    </div>
+    <div>
+        <div class="border-t border-black"></div>
+        <div class="border-l border-gray-300 h-10"></div>
+        <div class="border-b border-gray-300"></div>
+    </div>
+    <div>
+        <div class="border-t border-black"></div>
+        <div class="border-l border-gray-300 h-10"></div>
+        <div class="border-b border-gray-300"></div>
+    </div>
+    <div>
+        <div class="border-t border-black"></div>
+        <div class="border-l border-gray-300 h-10"></div>
+        <div class="border-b border-gray-300"></div>
+    </div>
+    <div>
+        <div class="border-t border-black"></div>
+        <div class="border-l border-gray-300 h-10"></div>
+        <div class="border-b border-gray-300"></div>
+    </div>
+    <div class="border border-black border-l-0 border-b-0">
+        <div class="border-l border-gray-300 h-10"></div>
+        <div class="border-b border-gray-300"></div>
+    </div>
+
+    <!-- 2nd Row -->
+    <div class="bg-blue-300">
+        <div class="border-l border-black h-10"></div>
+        <div class="border-b border-black"></div>
+    </div>
+    <div class="bg-blue-300">
+        <div class="border-l border-black"></div>
+        <div class="border-b border-black h-10"></div>
+    </div>
+    <div>
+        <div class="border-l border-blue-100"></div>
+        <div class="border-b border-gray-300 h-10"></div>
+    </div>
+    <div class="border border-gray-300 border-t-0 border-r-0"></div>
+    <div class="border border-gray-300 border-t-0 border-r-0"></div>
+    <div class="border border-gray-300 border-t-0 border-r-0"></div>
     <div class="border border-black border-t-0 border-r-0"></div>
     <div class="border border-black border-t-0 border-r-0"></div>
     <div class="border border-black border-t-0 border-r-0"></div>
     <div class="border border-black h-10 border-t-0"></div>
     <div class="border border-black border-t-0 border-r-0"></div>
     <div class="border border-black border-t-0 border-r-0"></div>
-    <div class="border border-black border-t-0 border-r-0"></div>
-    <div class="border border-black border-t-0 border-r-0"></div>
-    <div class="border border-black border-t-0 border-r-0"></div>
+    <div class="border border-gray-300 border-t-0 border-r-0"></div>
+    <div class="border border-gray-300 border-t-0 border-r-0"></div>
+    <div class="border border-gray-300 border-t-0 border-r-0"></div>
     <div class="border border-black border-t-0 border-r-0"></div>
     <div class="border border-black border-t-0 border-r-0"></div>
     <div class="border border-black border-t-0 border-r-0"></div>
@@ -107,6 +157,6 @@
     <div class="border border-black h-10 border-t-0"></div>
 </div>
 
-        @code {
+@code {
 
-        }
+}
