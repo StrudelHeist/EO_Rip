@@ -5,7 +5,7 @@
 
 <div class="flex flex-row">
     <div>
-        <PrimarySideMenu OptionNames="_menuOptions" OptionSelected="@OnMenuSelection"></PrimarySideMenu>
+        <PrimarySideMenu MenuOptions="_menuOptions"></PrimarySideMenu>
     </div>
     <div>
         <h3>Town</h3>
@@ -14,41 +14,24 @@
 </div>
 
 @code {
-    private List<string> _menuOptions;
+    private Dictionary<string, Action> _menuOptions;
     private string _selectedOption;
 
     protected override void OnInitialized()
     {
-        _menuOptions = new List<string>() { "Flaus Inn",
-            "Renovation Shop", "Stickleback Bar",
-            "Explorers Guild", "Dungeon Entrance" };
+        _menuOptions = new Dictionary<string, Action>()
+        {
+            { "Flaus Inn", () => GotoLocation(OverworldLocation.Inn)},
+            { "Renovation Shop", () => GotoLocation(OverworldLocation.Shop)},
+            { "Stickleback Bar", () => GotoLocation(OverworldLocation.Bar)},
+            { "Explorers Guild", () => GotoLocation(OverworldLocation.Guild)},
+            { "Dungeon Entrance", () => GotoLocation(OverworldLocation.Dungeon)}
+        };
     }
 
-    private void OnMenuSelection(string selectedOption)
+    private void GotoLocation(OverworldLocation location)
     {
-        _selectedOption = selectedOption;
-        switch (selectedOption)
-        {
-            case "Flaus Inn":
-                SessionInfo.CurrentLocation = OverworldLocation.Inn;
-                break;
-
-            case "Renovation Shop":
-                SessionInfo.CurrentLocation = OverworldLocation.Shop;
-                break;
-
-            case "Stickleback Bar":
-                SessionInfo.CurrentLocation = OverworldLocation.Bar;
-                break;
-
-            case "Explorers Guild":
-                SessionInfo.CurrentLocation = OverworldLocation.Guild;
-                break;
-
-            case "Dungeon Entrance":
-                SessionInfo.CurrentLocation = OverworldLocation.Dungeon;
-                break;
-        }
+        SessionInfo.CurrentLocation = location;
     }
 }
 
