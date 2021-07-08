@@ -9,8 +9,9 @@ namespace EtrianOdysseyClone.Data
     {
         Bar,
         Guild,
-        Town,
         Dungeon,
-        MainMenu
+        Inn,
+        Shop,
+        Town
     }
 }

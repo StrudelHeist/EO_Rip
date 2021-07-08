@@ -24,7 +24,7 @@ namespace EtrianOdysseyClone.Data
         
         public GameSession()
         {
-            CurrentLocation = OverworldLocation.Guild;
+            CurrentLocation = OverworldLocation.Town;
 
             Maps = new List<DungeonMap>();
             Maps.Add(new Floor1());

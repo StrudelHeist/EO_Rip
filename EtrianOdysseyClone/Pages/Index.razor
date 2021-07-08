@@ -10,7 +10,7 @@
     @SelectComponent()
 </body>
 <div>
-    <button class="rounded-md bg-blue-400 p-4 m-10 border-blue-900 shadow-sm" @onclick="SwitchComponent">Example Button</button>
+    <button class="rounded-md bg-blue-400 p-4 m-10 border-blue-900 shadow-sm" @onclick="SwitchComponent">Reset</button>
 </div>
 
 
@@ -27,10 +27,7 @@
 
     private void SwitchComponent()
     {
-        if (SessionInfo.CurrentLocation == OverworldLocation.Guild)
-            SessionInfo.CurrentLocation = OverworldLocation.Bar;
-        else
-            SessionInfo.CurrentLocation = OverworldLocation.Guild;
+            SessionInfo.CurrentLocation = OverworldLocation.Town;
     }
 
     private RenderFragment SelectComponent()
@@ -39,10 +36,6 @@
 
         switch (SessionInfo.CurrentLocation)
         {
-            case OverworldLocation.MainMenu:
-                componentToDisplay = RenderComponent(componentToDisplay, typeof(NavMenu));
-                break;
-
             case OverworldLocation.Bar:
                 componentToDisplay = RenderComponent(componentToDisplay, typeof(Bar));
                 break;
@@ -51,12 +44,21 @@
                 componentToDisplay = RenderComponent(componentToDisplay, typeof(Guild));
                 break;
 
-            case OverworldLocation.Town:
-                componentToDisplay = RenderComponent(componentToDisplay, typeof(Town));
-                break;
-
             case OverworldLocation.Dungeon:
                 componentToDisplay = RenderComponent(componentToDisplay, typeof(Bar));
+                break;
+
+            case OverworldLocation.Inn:
+                componentToDisplay = RenderComponent(componentToDisplay, typeof(Inn));
+                break;
+
+            case OverworldLocation.Shop:
+                componentToDisplay = RenderComponent(componentToDisplay, typeof(Shop));
+                break;
+
+
+            case OverworldLocation.Town:
+                componentToDisplay = RenderComponent(componentToDisplay, typeof(Town));
                 break;
         }
 
