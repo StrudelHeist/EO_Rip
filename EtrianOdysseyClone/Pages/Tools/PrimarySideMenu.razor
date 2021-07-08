@@ -1,12 +1,13 @@
-﻿<h3>PrimarySideMenu</h3>
-<body>
+﻿<div class="border-solid border-2 border-gray-300">
+    <h3>PrimarySideMenu</h3>
+
     @foreach (var option in OptionNames)
     {
-    <div class="border-light">
-        <button @onclick="() => OnOptionSelected(option)">@option</button>
-    </div>
+        <div class="border-light">
+            <button @onclick="() => OnOptionSelected(option)">@option</button>
+        </div>
     }
-</body>
+</div>
 @code {
     [Parameter]
     public List<string> OptionNames { get; set; }
