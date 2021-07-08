@@ -5,7 +5,11 @@ module.exports = {
     extend: {},
   },
   variants: {
-    extend: {},
+      extend: {
+          backgroundImage: theme => ({
+              'rocks': "url('https://i.imgur.com/4zSqPG3.png')",
+          })
+      },
   },
     plugins: [
         require('@tailwindcss/forms'),
