@@ -1,6 +1,14 @@
-﻿<h3>Bar</h3>
+﻿@using EtrianOdysseyClone.Data
+@inject GameSession SessionInfo
+
+<h3>Bar</h3>
 <img src="/Images/Bar.png" asp-append-version="true" />
+<button class="badge-primary" @onclick="Travel">Travel to Town</button>
 
 @code {
 
+    private void Travel()
+    {
+        SessionInfo.CurrentLocation = OverworldLocation.Town;
+    }
 }

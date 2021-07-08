@@ -14,6 +14,15 @@
 <button class="rounded-md bg-blue-400 p-4 m-10 border-blue-900 shadow-sm" @onclick="SwitchComponent">Example Button</button>
 
 @code {
+    protected override void OnInitialized()
+    {
+        SessionInfo.PropertyChanged += (sender, args) => StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        SessionInfo.PropertyChanged -= (sender, args) => StateHasChanged();
+    }
 
     private void SwitchComponent()
     {
@@ -21,8 +30,6 @@
             SessionInfo.CurrentLocation = OverworldLocation.Bar;
         else
             SessionInfo.CurrentLocation = OverworldLocation.Guild;
-
-        //StateHasChanged();
     }
 
     private RenderFragment SelectComponent()
