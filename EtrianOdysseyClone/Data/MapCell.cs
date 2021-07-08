@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace EtrianOdysseyClone.Data
+﻿namespace EtrianOdysseyClone.Data
 {
     public enum CellType
     {
@@ -18,6 +13,5 @@ namespace EtrianOdysseyClone.Data
 
         public bool Explored { get; set; } // Whether or not the party has ever entered this cell
         public bool PartyHere { get; set; } // If party is in cell
-
     }
 }
