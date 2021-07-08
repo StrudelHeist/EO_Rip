@@ -1,44 +1,74 @@
 ﻿@using EtrianOdysseyClone.Pages.Overworld
+@using EtrianOdysseyClone.Data
+@using EtrianOdysseyClone.Shared
+@inject GameSession SessionInfo
 @page "/"
 
-    <head>
-        This is a Head
-    </head>
+<head>
+    This is a Head
+</head>
 
-    <body style="border:gray; border-width:2px; border-style:solid;">
-       @SelectComponent()
-    </body>
-    <button class="rounded-md bg-blue-400 p-4 m-10 border-blue-900 shadow-sm" @onclick="SwitchComponent">Example Button</button>
+<body style="border:gray; border-width:2px; border-style:solid;">
+    @SelectComponent()
+</body>
+<button class="rounded-md bg-blue-400 p-4 m-10 border-blue-900 shadow-sm" @onclick="SwitchComponent">Example Button</button>
 
-    @code {
-        bool isSwitched = true;
-
-
-        private void SwitchComponent()
-        {
-            isSwitched = isSwitched ? false : true;
-            StateHasChanged();
-        }
-
-        private RenderFragment SelectComponent()
-        {
-            RenderFragment componentToDisplay;
-            if (isSwitched)
-            {
-                componentToDisplay = b =>
-                {
-                    b.OpenComponent(1, typeof(MenuComponent));
-                    b.CloseComponent();
-                };
-            }
-            else
-            {
-                componentToDisplay = b =>
-                {
-                    b.OpenComponent(1, typeof(HotswappingImage));
-                    b.CloseComponent();
-                };
-            }
-            return componentToDisplay;
-        }
+@code {
+    protected override void OnInitialized()
+    {
+        SessionInfo.PropertyChanged += (sender, args) => StateHasChanged();
     }
+
+    public void Dispose()
+    {
+        SessionInfo.PropertyChanged -= (sender, args) => StateHasChanged();
+    }
+
+    private void SwitchComponent()
+    {
+        if (SessionInfo.CurrentLocation == OverworldLocation.Guild)
+            SessionInfo.CurrentLocation = OverworldLocation.Bar;
+        else
+            SessionInfo.CurrentLocation = OverworldLocation.Guild;
+    }
+
+    private RenderFragment SelectComponent()
+    {
+        RenderFragment componentToDisplay = null;
+
+        switch (SessionInfo.CurrentLocation)
+        {
+            case OverworldLocation.MainMenu:
+                componentToDisplay = RenderComponent(componentToDisplay, typeof(NavMenu));
+                break;
+
+            case OverworldLocation.Bar:
+                componentToDisplay = RenderComponent(componentToDisplay, typeof(Bar));
+                break;
+
+            case OverworldLocation.Guild:
+                componentToDisplay = RenderComponent(componentToDisplay, typeof(Guild));
+                break;
+
+            case OverworldLocation.Town:
+                componentToDisplay = RenderComponent(componentToDisplay, typeof(Town));
+                break;
+
+            case OverworldLocation.Dungeon:
+                componentToDisplay = RenderComponent(componentToDisplay, typeof(Bar));
+                break;
+        }
+
+        return componentToDisplay;
+    }
+
+    private RenderFragment RenderComponent(RenderFragment componentToDisplay, Type componentType)
+    {
+        componentToDisplay = b =>
+        {
+            b.OpenComponent(1, componentType);
+            b.CloseComponent();
+        };
+        return componentToDisplay;
+    }
+}
