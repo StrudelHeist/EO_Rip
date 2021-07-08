@@ -2,15 +2,12 @@
 @using EtrianOdysseyClone.Data
 @inject GameSession SessionInfo
 @page "/"
-
-<head>
-    This is a Head
-</head>
-
-<body style="border:gray; border-width:2px; border-style:solid;">
-    @SelectComponent()
+<body >
+    <div class="flex-column justify-center">
+        @SelectComponent()
+        <button class="rounded-md bg-blue-400 p-4 m-10 border-blue-900 shadow-sm" @onclick="SwitchComponent">Example Button</button>
+    </div>
 </body>
-<button class="rounded-md bg-blue-400 p-4 m-10 border-blue-900 shadow-sm" @onclick="SwitchComponent">Example Button</button>
 
 @code {
     protected override void OnInitialized()
