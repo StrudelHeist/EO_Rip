@@ -15,7 +15,6 @@
     <Folder Include="Data\Items\Armor\" />
     <Folder Include="Data\Items\Consumables\" />
     <Folder Include="Data\Items\Weapons\" />
-    <Folder Include="Shared\" />
   </ItemGroup>
 
 </Project>
