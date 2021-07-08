@@ -1,10 +1,10 @@
-﻿<div class="border-solid border-2 border-gray-300">
-    <h3>PrimarySideMenu</h3>
-
+﻿<div>
     @foreach (var option in OptionNames)
     {
-        <div class="border-light">
-            <button @onclick="() => OnOptionSelected(option)">@option</button>
+        <div>
+            <div class="flex flex-col justify-evenly mr-3">
+                <button class="bg-blue-300 bg-opacity-60 rounded-r-lg text-center text-wrap px-20 py-2 text-gray-700 font-bold mb-2" @onclick="() => OnOptionSelected(option)">@option</button>
+            </div>
         </div>
     }
 </div>
