@@ -1,22 +1,20 @@
 ﻿<div>
-    @foreach (var option in OptionNames)
+    @foreach (var option in MenuOptions)
     {
         <div>
             <div class="flex flex-col justify-evenly mr-3">
-                <button class="bg-blue-300 bg-opacity-60 rounded-r-lg text-center text-wrap px-20 py-2 text-gray-700 font-bold mb-2" @onclick="() => OnOptionSelected(option)">@option</button>
+                <button class="bg-blue-300 bg-opacity-60 rounded-r-lg text-center text-wrap px-20 py-2 text-gray-700 font-bold mb-2" @onclick="() => OnOptionSelected(option)">@option.Key</button>
             </div>
         </div>
     }
 </div>
 @code {
     [Parameter]
-    public List<string> OptionNames { get; set; }
+    public Dictionary<string, Action> MenuOptions { get; set; }
 
-    [Parameter]
-    public EventCallback<string> OptionSelected { get; set; }
 
-    private Task OnOptionSelected(string selectedOption)
+    private void OnOptionSelected(KeyValuePair<string, Action> selectedOption)
     {
-        return OptionSelected.InvokeAsync(selectedOption);
+        MenuOptions[selectedOption.Key]();
     }
 }
