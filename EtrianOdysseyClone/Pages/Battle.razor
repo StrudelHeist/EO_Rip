@@ -25,31 +25,24 @@
         <div class="relative w-full h-64">
             <!-- Enemy lines -->
             <div class="pl-2 grid grid-cols-3 grid-rows-2">
-                <button type="button" class="h-32 border-4 border-yellow-300 place-self-center">
-                    <img class="h-32" src="https://i.imgur.com/G4vWdzd.png" />
+                @for(int i = 0; i < 6; i++)
+                {
+                <button @onclick="() => EnemyClicked(EnemyLineIdx(i))" type="button" class="h-32 place-self-center">
+                    @if(Enemies[EnemyLineIdx(i)] is not Placeholder)
+                    {
+                        <img class="h-32 @EnemySelectable()" src=@Enemies[EnemyLineIdx(i)].ImagePath />
+                    }
                 </button>
-                <button type="button" class="h-32 place-self-center">
-                    <img class="h-32" src="https://i.imgur.com/G4vWdzd.png" />
-                </button>
-                <button type="button" class="h-32 place-self-center">
-                    <img class="h-32" src="https://i.imgur.com/G4vWdzd.png" />
-                </button>
-
-                <button type="button" class="h-32 place-self-center">
-                    <img class="h-32" src="https://i.imgur.com/G4vWdzd.png" />
-                </button>
-                <button type="button" class="h-32 place-self-center">
-                    <img class="h-32" src="https://i.imgur.com/G4vWdzd.png" />
-                </button>
-                <button type="button" class="h-32 place-self-center">
-                    <img class="h-32" src="https://i.imgur.com/G4vWdzd.png" />
-                </button>
+                }
             </div>
 
             <!-- Character Profile -->
+            @if (ShowPortrait)
+            {
             <div class="absolute right-0 inset-y-0">
                 <img class="h-64" src=@SelectedMember.ImagePath />
             </div>
+            }
 
             <!-- Skills menu -->
             @if (SkillMenuOpen)
@@ -146,10 +139,17 @@
 </div>
 
 @code {
+    public enum BattleState
+    {
+        ACTION_SELECTION,
+        BATTLING
+    }
+
     public Party Party { get; private set; } // Get this from GameSession when we actually implement this
     public List<Enemy> Enemies { get; private set; } // This should be randomly generated to include floor appropriate enemies
 
     public bool SkillMenuOpen { get; private set; }
+    public bool ShowPortrait { get; private set; }
     public PartyMember SelectedMember
     {
         get
@@ -158,6 +158,7 @@
         }
     }
     public int CurrentMemberIdx { get; private set; }
+    public BattleState State { get; private set; }
 
     protected override void OnInitialized()
     {
@@ -168,9 +169,15 @@
         Enemies = new List<Enemy>();
         Enemies.Add(new FatChicken(0));
         Enemies.Add(new FatChicken(1));
+        Enemies.Add(new Placeholder());
+        Enemies.Add(new Placeholder());
+        Enemies.Add(new Placeholder());
+        Enemies.Add(new Placeholder());
 
         SkillMenuOpen = false;
         CurrentMemberIdx = 0;
+        State = BattleState.ACTION_SELECTION;
+        ShowPortrait = true;
 
         base.OnInitialized();
     }
@@ -178,6 +185,7 @@
     public void AttackClicked()
     {
         // TODO: Have user click on enemy to attack
+        ShowPortrait = false;
     }
     public void SkillClicked()
     {
@@ -196,11 +204,37 @@
         // TODO: Handle run/escape logic
     }
 
+    public void EnemyClicked(int idx)
+    {
+        // Ignore enemy clicks unless we're selecting them
+        if (ShowPortrait)
+            return;
+
+        // Set target enemy for party member and continue
+
+        // Move to next party member
+        ShowPortrait = true;
+        CurrentMemberIdx += 1;
+
+        // TODO: If no party members left, then confirm turn end
+    }
+
     private string HighlightPartyMember(int idx)
     {
         if (Party.Members[idx] == SelectedMember)
             return "bg-yellow-300 rounded p-1";
         else
             return "p-1";
+    }
+    private int EnemyLineIdx(int idx)
+    {
+        return (idx + 3) - (6 * (idx / 3));
+    }
+    private string EnemySelectable()
+    {
+        if (ShowPortrait)
+            return "";
+        else
+            return "hover:bg-yellow-300 rounded";
     }
 }
