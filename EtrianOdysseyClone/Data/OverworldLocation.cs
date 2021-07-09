@@ -11,6 +11,7 @@ namespace EtrianOdysseyClone.Data
         Guild,
         Dungeon,
         Inn,
+        Recruitment,
         Shop,
         Town
     }
