@@ -1,5 +1,9 @@
 ﻿@page "/battle"
 
+@using EtrianOdysseyClone.Data
+@using EtrianOdysseyClone.Data.Characters
+@using EtrianOdysseyClone.Data.Enemies
+
 <div class="bg-rocks h-screen">
     <!-- Battle information -->
     <div class="w-full bg-blue-500 p-2 opacity-90">
@@ -9,11 +13,11 @@
     <div class="flex p-2">
         <!-- Menu -->
         <div class="grid gap-1 bg-yellow-100 p-1 rounded">
-            <button type="button" class="bg-blue-600 hover:bg-blue-800 text-blue-50 font-semibold text-xl px-2">Attack</button>
-            <button type="button" class="bg-blue-600 hover:bg-blue-800 text-blue-50 font-semibold text-xl px-2">Skill</button>
-            <button type="button" class="bg-blue-600 hover:bg-blue-800 text-blue-50 font-semibold text-xl px-2">Defend</button>
-            <button type="button" class="bg-blue-600 hover:bg-blue-800 text-blue-50 font-semibold text-xl px-2">Item</button>
-            <button type="button" class="bg-blue-600 hover:bg-blue-800 text-blue-50 font-semibold text-xl px-2">Run</button>
+            <button @onclick="AttackClicked" type="button" class="bg-blue-600 hover:bg-blue-800 text-blue-50 font-semibold text-xl px-2">Attack</button>
+            <button @onclick="SkillClicked" type="button" class="bg-blue-600 hover:bg-blue-800 text-blue-50 font-semibold text-xl px-2">Skill</button>
+            <button @onclick="DefendClicked" type="button" class="bg-blue-600 hover:bg-blue-800 text-blue-50 font-semibold text-xl px-2">Defend</button>
+            <button @onclick="ItemClicked" type="button" class="bg-blue-600 hover:bg-blue-800 text-blue-50 font-semibold text-xl px-2">Item</button>
+            <button @onclick="RunClicked" type="button" class="bg-blue-600 hover:bg-blue-800 text-blue-50 font-semibold text-xl px-2">Run</button>
         </div>
 
 
@@ -44,10 +48,12 @@
 
             <!-- Character Profile -->
             <div class="absolute right-0 inset-y-0">
-                <img class="h-64" src="https://i.imgur.com/OGkRDjF.png" />
+                <img class="h-64" src=@SelectedMember.ImagePath />
             </div>
 
             <!-- Skills menu -->
+            @if (SkillMenuOpen)
+            {
             <div class="absolute inset-y-0 left-3 bg-blue-600 opacity-90 rounded border-2 border-yellow-100">
                 <div class="flex flex-col gap-1 p-2">
                     <button type="button" class="bg-blue-50 px-2">
@@ -64,123 +70,137 @@
                     </button>
                 </div>
             </div>
+            }
         </div>
     </div>
 
     <!-- Party Info -->
     <div class="grid grid-cols-3 grid-rows-2 gap-1 px-2">
-        <div class="bg-yellow-300 p-1 rounded">
+        <!-- Front Line Position 1 -->
+        <div class="@HighlightPartyMember(0)">
             <div class="bg-blue-700 rounded  flex flex-col justify-between">
+                @if (Party.Members.ElementAt(0) != null)
+                {
                 <div class="flex justify-between">
-                    <div class="text-blue-50 font-bold pl-2 lg:pl-5 text-lg">Brian</div>
+                    <div class="text-blue-50 font-bold pl-2 lg:pl-5 text-lg">@Party.Members[0].Name</div>
                     <div class="flex">
                         <div class="text-blue-200 pr-2">Lv</div>
-                        <div class="font-semibold text-blue-50 pr-2">1</div>
+                        <div class="font-semibold text-blue-50 pr-2">@Party.Members[0].Level</div>
                     </div>
                 </div>
                 <div class="flex justify-between bg-black rounded-b">
                     <div class="flex">
                         <div class="pl-2 text-blue-200">HP</div>
-                        <div class="pl-2 text-blue-50 font-semibold">10/20</div>
+                        <div class="pl-2 text-blue-50 font-semibold">@Party.Members[0].ActualHP/@Party.Members[0].BaseHP</div>
                     </div>
                     <div class="flex">
                         <div class="pr-2 text-blue-200">TP</div>
-                        <div class="pr-2 text-blue-50 font-semibold">15/15</div>
+                        <div class="pr-2 text-blue-50 font-semibold">@Party.Members[0].ActualTP/@Party.Members[0].BaseTP</div>
                     </div>
                 </div>
+                }
+            </div>
+        </div>
+        <!-- Front Line Position 2-->
+        <div class="@HighlightPartyMember(1)">
+            <div class="bg-blue-700 rounded flex flex-col justify-between">
+                @if (Party.Members.ElementAt(1) != null)
+                {
+                <div class="flex justify-between">
+                    <div class="flex">
+                        <div class="text-blue-200 pl-2">Lv</div>
+                        <div class="font-semibold text-blue-50 pl-2">@Party.Members[1].Level</div>
+                    </div>
+                    <div class="text-blue-50 font-bold pr-2 lg:pr-5 text-lg">@Party.Members[1].Name</div>
+                </div>
+                <div class="flex justify-between bg-black rounded-b">
+                    <div class="flex">
+                        <div class="pl-2 text-blue-200">HP</div>
+                        <div class="pl-2 text-blue-50 font-semibold">@Party.Members[1].ActualHP/@Party.Members[1].BaseHP</div>
+                    </div>
+                    <div class="flex">
+                        <div class="pr-2 text-blue-200">TP</div>
+                        <div class="pr-2 text-blue-50 font-semibold">@Party.Members[1].ActualTP/@Party.Members[1].BaseTP</div>
+                    </div>
+                </div>
+                }
             </div>
         </div>
         <div class="p-1">
             <div class="bg-blue-700 rounded flex flex-col justify-between">
-                <div class="flex justify-between">
-                    <div class="flex">
-                        <div class="text-blue-200 pl-2">Lv</div>
-                        <div class="font-semibold text-blue-50 pl-2">1</div>
-                    </div>
-                    <div class="text-blue-50 font-bold pr-2 lg:pr-5 text-lg">Gabe</div>
-                </div>
-                <div class="flex justify-between bg-black rounded-b">
-                    <div class="flex">
-                        <div class="pl-2 text-blue-200">HP</div>
-                        <div class="pl-2 text-blue-50 font-semibold">10/20</div>
-                    </div>
-                    <div class="flex">
-                        <div class="pr-2 text-blue-200">TP</div>
-                        <div class="pr-2 text-blue-50 font-semibold">15/15</div>
-                    </div>
-                </div>
             </div>
         </div>
         <div class="p-1">
             <div class="bg-blue-700 rounded flex flex-col justify-between">
-                <div class="flex justify-between">
-                    <div class="flex">
-                        <div class="text-blue-200 pl-2">Lv</div>
-                        <div class="font-semibold text-blue-50 pl-2">1</div>
-                    </div>
-                    <div class="text-blue-50 font-bold pr-2 lg:pr-5 text-lg">Justin</div>
-                </div>
-                <div class="flex justify-between bg-black rounded-b">
-                    <div class="flex">
-                        <div class="pl-2 text-blue-200">HP</div>
-                        <div class="pl-2 text-blue-50 font-semibold">10/20</div>
-                    </div>
-                    <div class="flex">
-                        <div class="pr-2 text-blue-200">TP</div>
-                        <div class="pr-2 text-blue-50 font-semibold">15/15</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="p-1">
-            <div class="bg-blue-700 rounded">
             </div>
         </div>
         <div class="p-1">
             <div class="bg-blue-700 rounded flex flex-col justify-between">
-                <div class="flex justify-between">
-                    <div class="flex">
-                        <div class="text-blue-200 pl-2">Lv</div>
-                        <div class="font-semibold text-blue-50 pl-2">1</div>
-                    </div>
-                    <div class="text-blue-50 font-bold pr-2 lg:pr-5 text-lg">Braven</div>
-                </div>
-                <div class="flex justify-between bg-black rounded-b">
-                    <div class="flex">
-                        <div class="pl-2 text-blue-200">HP</div>
-                        <div class="pl-2 text-blue-50 font-semibold">10/20</div>
-                    </div>
-                    <div class="flex">
-                        <div class="pr-2 text-blue-200">TP</div>
-                        <div class="pr-2 text-blue-50 font-semibold">15/15</div>
-                    </div>
-                </div>
             </div>
         </div>
         <div class="p-1">
             <div class="bg-blue-700 rounded flex flex-col justify-between">
-                <div class="flex justify-between">
-                    <div class="flex">
-                        <div class="text-blue-200 pl-2">Lv</div>
-                        <div class="font-semibold text-blue-50 pl-2">1</div>
-                    </div>
-                    <div class="text-blue-50 font-bold pr-2 lg:pr-5 text-lg">Jacob</div>
-                </div>
-                <div class="flex justify-between bg-black rounded-b">
-                    <div class="flex">
-                        <div class="pl-2 text-blue-200">HP</div>
-                        <div class="pl-2 text-blue-50 font-semibold">10/20</div>
-                    </div>
-                    <div class="flex">
-                        <div class="pr-2 text-blue-200">TP</div>
-                        <div class="pr-2 text-blue-50 font-semibold">15/15</div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 </div>
 
 @code {
+    public Party Party { get; private set; } // Get this from GameSession when we actually implement this
+    public List<Enemy> Enemies { get; private set; } // This should be randomly generated to include floor appropriate enemies
 
+    public bool SkillMenuOpen { get; private set; }
+    public PartyMember SelectedMember
+    {
+        get
+        {
+            return Party.Members[CurrentMemberIdx];
+        }
+    }
+    public int CurrentMemberIdx { get; private set; }
+
+    protected override void OnInitialized()
+    {
+        Party = new Party();
+        Party.Members.Add(new Braven(0));
+        Party.Members.Add(new Brian(1));
+
+        Enemies = new List<Enemy>();
+        Enemies.Add(new FatChicken(0));
+        Enemies.Add(new FatChicken(1));
+
+        SkillMenuOpen = false;
+        CurrentMemberIdx = 0;
+
+        base.OnInitialized();
+    }
+
+    public void AttackClicked()
+    {
+        // TODO: Have user click on enemy to attack
+    }
+    public void SkillClicked()
+    {
+        // TODO: Have user choose a skill
+    }
+    public void DefendClicked()
+    {
+        // TODO: Add a defense buff to party member
+    }
+    public void ItemClicked()
+    {
+        // TODO: Pull up an item menu
+    }
+    public void RunClicked()
+    {
+        // TODO: Handle run/escape logic
+    }
+
+    private string HighlightPartyMember(int idx)
+    {
+        if (Party.Members[idx] == SelectedMember)
+            return "bg-yellow-300 rounded p-1";
+        else
+            return "p-1";
+    }
 }

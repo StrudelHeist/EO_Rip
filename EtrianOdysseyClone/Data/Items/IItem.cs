@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace EtrianOdysseyClone.Data.Items
+﻿namespace EtrianOdysseyClone.Data.Items
 {
     public interface IItem
     {
+        public string Name { get; }
     }
 }

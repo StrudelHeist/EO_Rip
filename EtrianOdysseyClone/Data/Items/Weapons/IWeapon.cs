@@ -2,8 +2,8 @@
 {
     public interface IWeapon : IItem
     {
-        public int AttackModifier { get; set; }
-        public int MagicAttackModifier { get; set; }
+        public int AttackModifier { get; }
+        public int MagicAttackModifier { get; }
 
         // TODO: Who can wear/use weapon
     }

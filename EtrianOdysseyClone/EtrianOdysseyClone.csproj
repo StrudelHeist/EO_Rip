@@ -12,9 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Items\Armor\" />
     <Folder Include="Data\Items\Consumables\" />
-    <Folder Include="Data\Items\Weapons\" />
   </ItemGroup>
 
 </Project>
