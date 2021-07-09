@@ -1,54 +1,33 @@
 ﻿@using EtrianOdysseyClone.Pages.Tools
 @using EtrianOdysseyClone.Data
 @inject GameSession SessionInfo
-
-
-<div class="flex flex-row">
-    <div>
-        <PrimarySideMenu OptionNames="_menuOptions" OptionSelected="@OnMenuSelection"></PrimarySideMenu>
+    <div class="relative">
+        <img src="/Images/TownDay.stex.png" class="object-cover w-full" asp-append-version="true" />
+        <div class="absolute inset-y-0 flex flex-row">
+            <div class="relative flex justify-center">
+                <PrimarySideMenu MenuOptions="_menuOptions"></PrimarySideMenu>
+            </div>
+        </div>
     </div>
-    <div>
-        <h3>Town</h3>
-        <img src="/Images/Town.jpg" asp-append-version="true" />
-    </div>
-</div>
+    @code {
+        private Dictionary<string, Action> _menuOptions;
+        private string _selectedOption;
 
-@code {
-    private List<string> _menuOptions;
-    private string _selectedOption;
-
-    protected override void OnInitialized()
-    {
-        _menuOptions = new List<string>() { "Flaus Inn",
-            "Renovation Shop", "Stickleback Bar",
-            "Explorers Guild", "Dungeon Entrance" };
-    }
-
-    private void OnMenuSelection(string selectedOption)
-    {
-        _selectedOption = selectedOption;
-        switch (selectedOption)
+        protected override void OnInitialized()
         {
-            case "Flaus Inn":
-                SessionInfo.CurrentLocation = OverworldLocation.Inn;
-                break;
+            _menuOptions = new Dictionary<string, Action>()
+{
+            { "Flaus Inn", () => GotoLocation(OverworldLocation.Inn)},
+            { "Renovation Shop", () => GotoLocation(OverworldLocation.Shop)},
+            //{ "Stickleback Bar", () => GotoLocation(OverworldLocation.Bar)},
+            { "Explorers Guild", () => GotoLocation(OverworldLocation.Guild)},
+            { "Dungeon Entrance", () => GotoLocation(OverworldLocation.Dungeon)}
+        };
+        }
 
-            case "Renovation Shop":
-                SessionInfo.CurrentLocation = OverworldLocation.Shop;
-                break;
-
-            case "Stickleback Bar":
-                SessionInfo.CurrentLocation = OverworldLocation.Bar;
-                break;
-
-            case "Explorers Guild":
-                SessionInfo.CurrentLocation = OverworldLocation.Guild;
-                break;
-
-            case "Dungeon Entrance":
-                SessionInfo.CurrentLocation = OverworldLocation.Dungeon;
-                break;
+        private void GotoLocation(OverworldLocation location)
+        {
+            SessionInfo.CurrentLocation = location;
         }
     }
-}
 

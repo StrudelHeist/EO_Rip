@@ -1,4 +1,5 @@
 ﻿using EtrianOdysseyClone.Data.Maps;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
@@ -10,10 +11,10 @@ namespace EtrianOdysseyClone.Data
 
         private OverworldLocation _currentLocation { get; set; }
 
-        public OverworldLocation CurrentLocation 
+        public OverworldLocation CurrentLocation
         {
             get { return _currentLocation; }
-            set 
+            set
             {
                 _currentLocation = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentLocation)));
@@ -21,15 +22,14 @@ namespace EtrianOdysseyClone.Data
         }
         public int Monies { get; set; }
         public Party Party { get; set; }
-        
+
         public GameSession()
         {
-            CurrentLocation = OverworldLocation.Town;
-
             Maps = new List<DungeonMap>();
             Maps.Add(new Floor1());
 
             CurrentFloor = Maps[0];
+            CurrentLocation = OverworldLocation.Town;
         }
 
         // Map data

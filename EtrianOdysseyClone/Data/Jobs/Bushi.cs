@@ -3,6 +3,7 @@
     // Glass Cannon \ Damage Dealer
     public class Bushi : IJob
     {
+        public Job JobTitle { get { return Job.Bushi; } }
         public int StartingHP { get; set; }
         public int StartingTP { get; set; }
 

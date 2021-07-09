@@ -3,6 +3,7 @@
     // Elemental Attacker
     public class Mage : IJob
     {
+        public Job JobTitle { get { return Job.Mage; } }
         public int StartingHP { get; set; }
         public int StartingTP { get; set; }
 

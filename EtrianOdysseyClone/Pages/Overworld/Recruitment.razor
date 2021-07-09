@@ -1,0 +1,38 @@
+﻿@using EtrianOdysseyClone.Pages.Tools
+@using EtrianOdysseyClone.Data
+@using EtrianOdysseyClone.Data.Jobs
+@inject GameSession SessionInfo
+
+<img src="/Images/GuildDay.stex.png" class="object-cover w-full" asp-append-version="true" />
+<div class="absolute inset-y-0 flex flex-row">
+    <div class="relative flex justify-center">
+        <PrimaryFloatingMenu MenuOptions="_jobSelectOptions"></PrimaryFloatingMenu>
+    </div>
+</div>
+
+@code {
+    private Dictionary<string, Action> _jobSelectOptions;
+
+    protected override void OnInitialized()
+    {
+        _jobSelectOptions = new Dictionary<string, Action>()
+{
+            { "Bard", () => OnJobSelect(new Bard())},
+            { "Bushi", () => OnJobSelect(new Bushi())},
+            { "Defender", () => OnJobSelect(new Defender())},
+            { "Hero", () => OnJobSelect(new Hero())},
+            { "Mage", () => OnJobSelect(new Mage())},
+            { "Rogue", () => OnJobSelect(new Rogue())}
+        };
+    }
+
+    private void GotoLocation(OverworldLocation location)
+    {
+        SessionInfo.CurrentLocation = location;
+    }
+
+    private void OnJobSelect(IJob newJob)
+    {
+        
+    }
+}

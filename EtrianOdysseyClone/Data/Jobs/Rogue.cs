@@ -8,6 +8,7 @@ namespace EtrianOdysseyClone.Data.Jobs
     // Ailment Inflictor
     public class Rogue : IJob
     {
+        public Job JobTitle { get { return Job.Rogue; } }
         public int StartingHP { get; set; }
         public int StartingTP { get; set; }
 

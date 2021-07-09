@@ -2,15 +2,13 @@
 @using EtrianOdysseyClone.Data
 @inject GameSession SessionInfo
 @page "/"
-<head>
-    This is a Head
-</head>
-
-<body>
-    @SelectComponent()
-</body>
-<div>
-    <button class="rounded-md bg-blue-400 p-4 m-10 border-blue-900 shadow-sm" @onclick="SwitchComponent">Reset</button>
+<div class="bg-gray-200 h-screen">
+    <div class="flex justify-center h-screen">
+        <div class="bg-white h-screen  w-10/12">
+            @SelectComponent()
+            <button class="rounded-md bg-blue-400 p-4 m-10 border-blue-900 shadow-sm" @onclick="SwitchComponent">Reset</button>
+        </div>
+    </div>
 </div>
 
 
@@ -27,7 +25,7 @@
 
     private void SwitchComponent()
     {
-            SessionInfo.CurrentLocation = OverworldLocation.Town;
+        SessionInfo.CurrentLocation = OverworldLocation.Town;
     }
 
     private RenderFragment SelectComponent()
@@ -45,7 +43,7 @@
                 break;
 
             case OverworldLocation.Dungeon:
-                componentToDisplay = RenderComponent(componentToDisplay, typeof(Bar));
+                componentToDisplay = RenderComponent(componentToDisplay, typeof(Dungeon));
                 break;
 
             case OverworldLocation.Inn:
