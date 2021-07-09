@@ -1,0 +1,32 @@
+﻿@using EtrianOdysseyClone.Pages.Tools
+@using EtrianOdysseyClone.Data
+@inject GameSession SessionInfo
+
+<img src="/Images/GuildDay.stex.png" class="object-cover w-full" asp-append-version="true" />
+<div class="absolute inset-y-0 flex flex-row">
+    <div class="relative flex justify-center">
+        <PrimaryFloatingMenu MenuOptions="_menuOptions"></PrimaryFloatingMenu>
+    </div>
+</div>
+
+@code {
+    private Dictionary<string, Action> _menuOptions;
+    private string _selectedOption;
+
+    protected override void OnInitialized()
+    {
+        _menuOptions = new Dictionary<string, Action>()
+{
+            { "Flaus Inn", () => GotoLocation(OverworldLocation.Inn)},
+            { "Renovation Shop", () => GotoLocation(OverworldLocation.Shop)},
+            //{ "Stickleback Bar", () => GotoLocation(OverworldLocation.Bar)},
+            { "Explorers Guild", () => GotoLocation(OverworldLocation.Guild)},
+            { "Dungeon Entrance", () => GotoLocation(OverworldLocation.Dungeon)}
+        };
+    }
+
+    private void GotoLocation(OverworldLocation location)
+    {
+        SessionInfo.CurrentLocation = location;
+    }
+}

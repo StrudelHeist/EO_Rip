@@ -1,64 +1,63 @@
 ﻿@using EtrianOdysseyClone.Pages.Tools
 @using EtrianOdysseyClone.Data
 @inject GameSession SessionInfo
-
-<div class="flex flex-row">
-    <div>
-        <PrimarySideMenu MenuOptions="_menuOptions"></PrimarySideMenu>
+    <div class="relative">
+        <img src="/Images/InnDay.stex.png" class="object-cover w-full" asp-append-version="true" />
+        <div class="absolute inset-y-0 flex flex-row">
+            <div>
+                <PrimarySideMenu MenuOptions="_menuOptions"></PrimarySideMenu>
+            </div>
+        </div>
     </div>
-    <div>
-        <img src="/Images/Inn.png" asp-append-version="true" />
-    </div>
-</div>
-@code {
-    private Dictionary<string, Action> _menuOptions;
+    @code {
+        private Dictionary<string, Action> _menuOptions;
 
-    protected override void OnInitialized()
-    {
-        _menuOptions = new Dictionary<string, Action>()
+        protected override void OnInitialized()
+        {
+            _menuOptions = new Dictionary<string, Action>()
 {
             { "Stay", () => OnStay()},
             //{ "Clinic", () => OnClinic()},
             { "Leave", () => GotoLocation(OverworldLocation.Town)}
         };
-    }
-
-    private void GotoLocation(OverworldLocation location)
-    {
-        SessionInfo.CurrentLocation = location;
-    }
-
-    private void OnStay()
-    {
-        if (SessionInfo.Party == null || SessionInfo.Party.Members.Count! > 0)
-            return;
-
-        foreach (var member in SessionInfo.Party.Members)
-        {
-            if (member.ActualHP != 0)
-            {
-                member.ActualTP = member.BaseTP;
-                member.ActualHP = member.BaseHP;
-            }
         }
 
-        SessionInfo.Monies -= 5;
-    }
-
-    private void OnClinic()
-    {
-        if (SessionInfo.Party == null || SessionInfo.Party.Members.Count! > 0)
-            return;
-
-        foreach (var member in SessionInfo.Party.Members)
+        private void GotoLocation(OverworldLocation location)
         {
-            member.Debuffs.Clear();
-            if (member.ActualHP == 0)
-            {
-                member.ActualHP = 1;
-            }
+            SessionInfo.CurrentLocation = location;
         }
 
-        SessionInfo.Monies -= 20;
+        private void OnStay()
+        {
+            if (SessionInfo.Party == null || SessionInfo.Party.Members.Count! > 0)
+                return;
+
+            foreach (var member in SessionInfo.Party.Members)
+            {
+                if (member.ActualHP != 0)
+                {
+                    member.ActualTP = member.BaseTP;
+                    member.ActualHP = member.BaseHP;
+                }
+            }
+
+            SessionInfo.Monies -= 5;
+        }
+
+        private void OnClinic()
+        {
+            if (SessionInfo.Party == null || SessionInfo.Party.Members.Count! > 0)
+                return;
+
+            foreach (var member in SessionInfo.Party.Members)
+            {
+                member.Debuffs.Clear();
+                if (member.ActualHP == 0)
+                {
+                    member.ActualHP = 1;
+                }
+            }
+
+            SessionInfo.Monies -= 20;
+        }
     }
-}
