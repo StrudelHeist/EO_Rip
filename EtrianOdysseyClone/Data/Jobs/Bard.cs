@@ -3,6 +3,7 @@
     // Healer / Enhance Party Stats
     public class Bard : IJob
     {
+        public Job JobTitle { get { return Job.Bard; } }
         public int StartingHP { get; set; }
         public int StartingTP { get; set; }
 

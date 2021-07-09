@@ -3,6 +3,7 @@
     // All Around
     public class Hero : IJob
     {
+        public Job JobTitle { get { return Job.Hero; } }
         public int StartingHP { get; set; }
         public int StartingTP { get; set; }
 
