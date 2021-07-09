@@ -1,8 +1,13 @@
-﻿namespace EtrianOdysseyClone.Data.Jobs
+﻿using EtrianOdysseyClone.Data.Skills;
+using System.Collections.Generic;
+
+namespace EtrianOdysseyClone.Data.Jobs
 {
     // All Around
     public class Hero : IJob
     {
+        public List<ISkill> Skills { get; private set; }
+
         public int StartingHP { get; set; }
         public int StartingTP { get; set; }
 

@@ -1,13 +1,13 @@
-﻿using System;
+﻿using EtrianOdysseyClone.Data.Skills;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace EtrianOdysseyClone.Data.Jobs
 {
     // Ailment Inflictor
     public class Rogue : IJob
     {
+        public List<ISkill> Skills { get; private set; }
+
         public int StartingHP { get; set; }
         public int StartingTP { get; set; }
 

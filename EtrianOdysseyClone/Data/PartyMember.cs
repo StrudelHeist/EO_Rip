@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace EtrianOdysseyClone.Data
 {
-    public class PartyMember
+    public class PartyMember : ITarget
     {
         public string Name { get; set; }
 

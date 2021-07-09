@@ -142,6 +142,7 @@
     public enum BattleState
     {
         ACTION_SELECTION,
+        CONFIRM,
         BATTLING
     }
 
@@ -190,6 +191,9 @@
     public void SkillClicked()
     {
         // TODO: Have user choose a skill
+        // --> Update skill menu according to user class
+        SkillMenuOpen = true;
+
     }
     public void DefendClicked()
     {
@@ -210,13 +214,19 @@
         if (ShowPortrait)
             return;
 
-        // Set target enemy for party member and continue
+        // TODO: Set target enemy for party member and continue
 
         // Move to next party member
         ShowPortrait = true;
-        CurrentMemberIdx += 1;
+        // --> If no party members left, then confirm turn end
+        if (CurrentMemberIdx + 1 >= Party.Members.Count)
+        {
+            State = BattleState.CONFIRM;
+            return;
+        }
+        else
+            CurrentMemberIdx += 1;
 
-        // TODO: If no party members left, then confirm turn end
     }
 
     private string HighlightPartyMember(int idx)

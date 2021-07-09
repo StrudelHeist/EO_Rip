@@ -1,8 +1,13 @@
-﻿namespace EtrianOdysseyClone.Data.Jobs
+﻿using EtrianOdysseyClone.Data.Skills;
+using System.Collections.Generic;
+
+namespace EtrianOdysseyClone.Data.Jobs
 {
     // Glass Cannon \ Damage Dealer
     public class Bushi : IJob
     {
+        public List<ISkill> Skills { get; private set; }
+
         public int StartingHP { get; set; }
         public int StartingTP { get; set; }
 
@@ -27,6 +32,8 @@
 
             StartingSpeed = 2;
             StartingLuck = 4;
+
+            Skills = new List<ISkill>();
         }
     }
 }

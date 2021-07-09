@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace EtrianOdysseyClone.Data
 {
-    public class Enemy
+    public class Enemy : ITarget
     {
         public string Name { get; set; }
         

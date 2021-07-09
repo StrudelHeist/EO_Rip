@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EtrianOdysseyClone.Data.Skills;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,6 +9,8 @@ namespace EtrianOdysseyClone.Data.Jobs
     public interface IJob
     {
         // TODO: List of skills for job
+        public List<ISkill> Skills { get; }
+
         // TODO: Level up method (different classes/jobs should level up differently)
 
         // Starting stats per job
