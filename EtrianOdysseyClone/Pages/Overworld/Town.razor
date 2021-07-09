@@ -20,10 +20,10 @@
     protected override void OnInitialized()
     {
         _menuOptions = new Dictionary<string, Action>()
-        {
+{
             { "Flaus Inn", () => GotoLocation(OverworldLocation.Inn)},
             { "Renovation Shop", () => GotoLocation(OverworldLocation.Shop)},
-            { "Stickleback Bar", () => GotoLocation(OverworldLocation.Bar)},
+            //{ "Stickleback Bar", () => GotoLocation(OverworldLocation.Bar)},
             { "Explorers Guild", () => GotoLocation(OverworldLocation.Guild)},
             { "Dungeon Entrance", () => GotoLocation(OverworldLocation.Dungeon)}
         };
