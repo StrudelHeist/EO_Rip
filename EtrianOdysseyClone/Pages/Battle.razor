@@ -52,7 +52,7 @@
                 <div class="flex flex-col gap-1 p-2">
                     @foreach (var skill in SkillMenuSkills)
                     {
-                    <button @onclick="SkillSelected" type="button" class="bg-blue-50 px-2">
+                    <button @onclick="() => SkillSelected(skill)" type="button" class="bg-blue-50 px-2">
                         <div class="flex justify-between">
                             <label class="text-blue-900 font-semibold">@skill.Name</label>
                             <label class="pl-2">@skill.TpCost</label>
@@ -147,6 +147,8 @@
     public Party Party { get; private set; } // Get this from GameSession when we actually implement this
     public List<Enemy> Enemies { get; private set; } // This should be randomly generated to include floor appropriate enemies
 
+    public List<BattleAction> BattleActions { get; private set; }
+
     public bool SkillMenuOpen { get; private set; }
     public bool ShowPortrait { get; private set; }
     public PartyMember SelectedMember
@@ -175,6 +177,7 @@
         Enemies.Add(new Placeholder());
 
         SkillMenuSkills = new List<ISkill>();
+        BattleActions = new List<BattleAction>();
 
         SkillMenuOpen = false;
         CurrentMemberIdx = 0;
@@ -218,6 +221,22 @@
             return;
 
         // TODO: Set target enemy for party member and continue
+        BattleActions.Add(new BattleAction()
+        {
+            ActionSpeed = Party.Members[CurrentMemberIdx].ActualSpeed,
+            ActualAction = () =>
+            {
+                ITarget target = Enemies[idx];
+                ICaster member = Party.Members[CurrentMemberIdx];
+
+                int damage = member.ActualStrength - target.ActualDefense;
+                if (damage > 0)
+                {
+                    target.ActualHP -= damage;
+                }
+            },
+            ActionInformation = $"{Party.Members[CurrentMemberIdx].Name} attacks {Enemies[idx].Name}"
+        });
 
         // Move to next party member
         ShowPortrait = true;
@@ -231,8 +250,20 @@
             CurrentMemberIdx += 1;
 
     }
-    public void SkillSelected()
+    public void SkillSelected(ISkill skill)
     {
+        // Pick target for skill depending on skill type
+
+        BattleActions.Add(new BattleAction()
+        {
+            ActionSpeed = Party.Members[CurrentMemberIdx].ActualSpeed,
+            ActualAction = () =>
+            {
+                //skill.ExecuteSkill(Party.Members[CurrentMemberIdx], )
+            },
+            ActionInformation = $"{Party.Members[CurrentMemberIdx].Name} uses {skill.Name}"
+        });
+
         SkillMenuOpen = false;
         if (CurrentMemberIdx + 1 >= Party.Members.Count)
         {
@@ -241,6 +272,13 @@
         }
         else
             CurrentMemberIdx += 1;
+    }
+
+    private void BattleSequence()
+    {
+        // Go through actions organized by speed
+
+        // Show information on the top bar
     }
 
     private string HighlightPartyMember(int idx)
