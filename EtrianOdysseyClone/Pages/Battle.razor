@@ -3,6 +3,7 @@
 @using EtrianOdysseyClone.Data
 @using EtrianOdysseyClone.Data.Characters
 @using EtrianOdysseyClone.Data.Enemies
+@using EtrianOdysseyClone.Data.Skills 
 
 <div class="bg-rocks h-screen">
     <!-- Battle information -->
@@ -49,18 +50,15 @@
             {
             <div class="absolute inset-y-0 left-3 bg-blue-600 opacity-90 rounded border-2 border-yellow-100">
                 <div class="flex flex-col gap-1 p-2">
-                    <button type="button" class="bg-blue-50 px-2">
+                    @foreach (var skill in SkillMenuSkills)
+                    {
+                    <button @onclick="SkillSelected" type="button" class="bg-blue-50 px-2">
                         <div class="flex justify-between">
-                            <label class="text-blue-900 font-semibold">Charge</label>
-                            <label>5</label>
+                            <label class="text-blue-900 font-semibold">@skill.Name</label>
+                            <label class="pl-2">@skill.TpCost</label>
                         </div>
                     </button>
-                    <button type="button" class="bg-blue-50 px-2">
-                        <div class="flex justify-between">
-                            <label class="text-blue-900 font-semibold">Strength Slash</label>
-                            <label class="pl-3">3</label>
-                        </div>
-                    </button>
+                    }
                 </div>
             </div>
             }
@@ -160,6 +158,7 @@
     }
     public int CurrentMemberIdx { get; private set; }
     public BattleState State { get; private set; }
+    public List<ISkill> SkillMenuSkills { get; private set; }
 
     protected override void OnInitialized()
     {
@@ -174,6 +173,8 @@
         Enemies.Add(new Placeholder());
         Enemies.Add(new Placeholder());
         Enemies.Add(new Placeholder());
+
+        SkillMenuSkills = new List<ISkill>();
 
         SkillMenuOpen = false;
         CurrentMemberIdx = 0;
@@ -190,8 +191,10 @@
     }
     public void SkillClicked()
     {
-        // TODO: Have user choose a skill
-        // --> Update skill menu according to user class
+        // Have user choose a skill
+        SkillMenuSkills.Clear();
+        foreach (ISkill skill in SelectedMember.Job.Skills)
+            SkillMenuSkills.Add(skill);
         SkillMenuOpen = true;
 
     }
@@ -228,6 +231,17 @@
             CurrentMemberIdx += 1;
 
     }
+    public void SkillSelected()
+    {
+        SkillMenuOpen = false;
+        if (CurrentMemberIdx + 1 >= Party.Members.Count)
+        {
+            State = BattleState.CONFIRM;
+            return;
+        }
+        else
+            CurrentMemberIdx += 1;
+    }
 
     private string HighlightPartyMember(int idx)
     {
@@ -238,7 +252,7 @@
     }
     private int EnemyLineIdx(int idx)
     {
-        return (idx + 3) - (6 * (idx / 3));
+        return (idx + 3) % 6;
     }
     private string EnemySelectable()
     {

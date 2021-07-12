@@ -1,6 +1,4 @@
-﻿using EtrianOdysseyClone.Data.Buffs;
-using EtrianOdysseyClone.Data.Debuffs;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace EtrianOdysseyClone.Data
 {
@@ -22,19 +20,17 @@ namespace EtrianOdysseyClone.Data
         public int BaseLuck { get; set; }           // Use for crit calculation
 
         public int ActualHP { get; set; }
+        public int ActualTP { get; set; } // Only used to implement "ITarget" enemies shouldn't use TP
 
         public int ActualStrength
         {
             get
             {
                 int buffMods = 0;
-                foreach (IBuff buff in Buffs)
+                foreach (var buff in Buffs)
                     buffMods += buff.StrengthModifier;
-                int debuffMods = 0;
-                foreach (IDebuff debuff in Debuffs)
-                    debuffMods += debuff.StrengthModifier;
 
-                return BaseStrength + buffMods + debuffMods;
+                return BaseStrength + buffMods;
             }
         }
         public int ActualDefense
@@ -42,13 +38,10 @@ namespace EtrianOdysseyClone.Data
             get
             {
                 int buffMods = 0;
-                foreach (IBuff buff in Buffs)
+                foreach (var buff in Buffs)
                     buffMods += buff.DefenseModifier;
-                int debuffMods = 0;
-                foreach (IDebuff debuff in Debuffs)
-                    debuffMods += debuff.DefenseModifier;
 
-                return BaseDefense + buffMods + debuffMods;
+                return BaseDefense + buffMods;
             }
         }
         public int ActualMagicStrength
@@ -56,13 +49,10 @@ namespace EtrianOdysseyClone.Data
             get
             {
                 int buffMods = 0;
-                foreach (IBuff buff in Buffs)
+                foreach (var buff in Buffs)
                     buffMods += buff.MagicStrengthModifier;
-                int debuffMods = 0;
-                foreach (IDebuff debuff in Debuffs)
-                    debuffMods += debuff.MagicStrengthModifier;
 
-                return BaseMagicStrength + buffMods + debuffMods;
+                return BaseMagicStrength + buffMods;
             }
         }
         public int ActualMagicDefense
@@ -70,13 +60,10 @@ namespace EtrianOdysseyClone.Data
             get
             {
                 int buffMod = 0;
-                foreach (IBuff buff in Buffs)
+                foreach (var buff in Buffs)
                     buffMod += buff.MagicDefenseModifier;
-                int debuffMod = 0;
-                foreach (IDebuff debuff in Debuffs)
-                    debuffMod += debuff.MagicDefenseModifier;
 
-                return BaseMagicDefense + buffMod + debuffMod;
+                return BaseMagicDefense + buffMod;
             }
         }
         public int ActualSpeed
@@ -84,13 +71,10 @@ namespace EtrianOdysseyClone.Data
             get
             {
                 int buffMods = 0;
-                foreach (IBuff buff in Buffs)
+                foreach (var buff in Buffs)
                     buffMods += buff.SpeedModifier;
-                int debuffMods = 0;
-                foreach (IDebuff debuff in Debuffs)
-                    debuffMods += debuff.SpeedModifier;
 
-                return BaseSpeed + buffMods + debuffMods;
+                return BaseSpeed + buffMods;
             }
         }
         public int ActualLuck
@@ -98,17 +82,13 @@ namespace EtrianOdysseyClone.Data
             get
             {
                 int buffMods = 0;
-                foreach (IBuff buff in Buffs)
+                foreach (var buff in Buffs)
                     buffMods += buff.LuckModifier;
-                int debuffMods = 0;
-                foreach (IDebuff debuff in Debuffs)
-                    debuffMods += debuff.LuckModifier;
 
-                return BaseLuck + buffMods + debuffMods;
+                return BaseLuck + buffMods;
             }
         }
 
-        public List<IBuff> Buffs { get; set; }
-        public List<IDebuff> Debuffs { get; set; }
+        public List<Buff> Buffs { get; set; }
     }
 }

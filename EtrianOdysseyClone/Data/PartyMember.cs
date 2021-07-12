@@ -1,13 +1,11 @@
-﻿using EtrianOdysseyClone.Data.Buffs;
-using EtrianOdysseyClone.Data.Debuffs;
-using EtrianOdysseyClone.Data.Items.Armor;
+﻿using EtrianOdysseyClone.Data.Items.Armor;
 using EtrianOdysseyClone.Data.Items.Weapons;
 using EtrianOdysseyClone.Data.Jobs;
 using System.Collections.Generic;
 
 namespace EtrianOdysseyClone.Data
 {
-    public class PartyMember : ITarget
+    public class PartyMember : ITarget, ICaster
     {
         public string Name { get; set; }
 
@@ -41,13 +39,10 @@ namespace EtrianOdysseyClone.Data
                 foreach (IWeapon weapon in EquippedWeapons)
                     weaponMods += weapon.AttackModifier;
                 int buffMods = 0;
-                foreach (IBuff buff in Buffs)
+                foreach (var buff in Buffs)
                     buffMods += buff.StrengthModifier;
-                int debuffMods = 0;
-                foreach (IDebuff debuff in Debuffs)
-                    debuffMods += debuff.StrengthModifier;
 
-                return BaseStrength + weaponMods + buffMods + debuffMods;
+                return BaseStrength + weaponMods + buffMods;
             }
         }
         public int ActualDefense
@@ -58,13 +53,10 @@ namespace EtrianOdysseyClone.Data
                 foreach (IArmor armor in EquippedArmor)
                     armorMods += armor.DefenseModifier;
                 int buffMods = 0;
-                foreach (IBuff buff in Buffs)
+                foreach (var buff in Buffs)
                     buffMods += buff.DefenseModifier;
-                int debuffMods = 0;
-                foreach (IDebuff debuff in Debuffs)
-                    debuffMods += debuff.DefenseModifier;
 
-                return BaseDefense + armorMods + buffMods + debuffMods;
+                return BaseDefense + armorMods + buffMods;
             }
         }
         public int ActualMagicStrength
@@ -75,13 +67,10 @@ namespace EtrianOdysseyClone.Data
                 foreach (IWeapon weapon in EquippedWeapons)
                     weaponMods += weapon.MagicAttackModifier;
                 int buffMods = 0;
-                foreach (IBuff buff in Buffs)
+                foreach (var buff in Buffs)
                     buffMods += buff.MagicStrengthModifier;
-                int debuffMods = 0;
-                foreach (IDebuff debuff in Debuffs)
-                    debuffMods += debuff.MagicStrengthModifier;
 
-                return BaseMagicStrength + weaponMods + buffMods + debuffMods;
+                return BaseMagicStrength + weaponMods + buffMods;
             }
         }
         public int ActualMagicDefense
@@ -92,13 +81,10 @@ namespace EtrianOdysseyClone.Data
                 foreach (IArmor armor in EquippedArmor)
                     armorMod += armor.MagicDefenseModifier;
                 int buffMod = 0;
-                foreach (IBuff buff in Buffs)
+                foreach (var buff in Buffs)
                     buffMod += buff.MagicDefenseModifier;
-                int debuffMod = 0;
-                foreach (IDebuff debuff in Debuffs)
-                    debuffMod += debuff.MagicDefenseModifier;
 
-                return BaseMagicDefense + armorMod + buffMod + debuffMod;
+                return BaseMagicDefense + armorMod + buffMod;
             }
         }
         public int ActualSpeed
@@ -106,13 +92,10 @@ namespace EtrianOdysseyClone.Data
             get
             {
                 int buffMods = 0;
-                foreach (IBuff buff in Buffs)
+                foreach (var buff in Buffs)
                     buffMods += buff.SpeedModifier;
-                int debuffMods = 0;
-                foreach (IDebuff debuff in Debuffs)
-                    debuffMods += debuff.SpeedModifier;
 
-                return BaseSpeed + buffMods + debuffMods;
+                return BaseSpeed + buffMods;
             }
         }
         public int ActualLuck
@@ -120,21 +103,17 @@ namespace EtrianOdysseyClone.Data
             get
             {
                 int buffMods = 0;
-                foreach (IBuff buff in Buffs)
+                foreach (var buff in Buffs)
                     buffMods += buff.LuckModifier;
-                int debuffMods = 0;
-                foreach (IDebuff debuff in Debuffs)
-                    debuffMods += debuff.LuckModifier;
 
-                return BaseLuck + buffMods + debuffMods;
+                return BaseLuck + buffMods;
             }
         }
 
         public List<IWeapon> EquippedWeapons { get; set; }
         public List<IArmor> EquippedArmor { get; set; }
 
-        public List<IBuff> Buffs { get; set; }
-        public List<IDebuff> Debuffs { get; set; }
+        public List<Buff> Buffs { get; set; } // Store buffs AND debuffs
 
         protected void InitializeStats()
         {
@@ -155,8 +134,7 @@ namespace EtrianOdysseyClone.Data
         {
             EquippedArmor = new List<IArmor>();
             EquippedWeapons = new List<IWeapon>();
-            Buffs = new List<Buffs.IBuff>();
-            Debuffs = new List<Debuffs.IDebuff>();
+            Buffs = new List<Buff>();
 
             EquippedArmor.Add(new ButtonUpShirt());
             EquippedWeapons.Add(new Keyboard());

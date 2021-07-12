@@ -1,14 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace EtrianOdysseyClone.Data.Skills
 {
     public interface ISkill
     {
-        // TODO: Who does the skill effect
-        // TODO: What happens (increase/decrease stats)
-        // TODO: Duration - how long does the effect last
+        public string Name { get; }
+
+        // What happens (increase/decrease stats)
+        public void ExecuteSkill(ICaster caster, List<ITarget> targets);
+
+        // Duration - how long does the effect last
+        public int Duration { get; }
+
+        public int SkillLevel { get; }
+
+        // TP Cost
+        public int TpCost { get; }
     }
 }

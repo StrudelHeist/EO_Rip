@@ -33,7 +33,16 @@ namespace EtrianOdysseyClone.Data.Jobs
             StartingSpeed = 2;
             StartingLuck = 4;
 
+            InitializeSkills();
+        }
+
+        private void InitializeSkills()
+        {
             Skills = new List<ISkill>();
+
+            Skills.Add(new BloodVow());
+            Skills.Add(new HeavyBlow());
+            Skills.Add(new WideSwing());
         }
     }
 }

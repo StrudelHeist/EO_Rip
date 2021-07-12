@@ -2,12 +2,12 @@
 
 namespace EtrianOdysseyClone.Data
 {
-    public interface ITarget
+    public interface ICaster
     {
-        public int ActualHP { get; set; }
         public int ActualTP { get; set; }
+        public int ActualHP { get; set; }
 
-        public int ActualDefense { get; }
+        public int ActualStrength { get; }
 
         public List<Buff> Buffs { get; set; }
     }

@@ -17,7 +17,6 @@ namespace EtrianOdysseyClone.Data.Characters
             Job = new Bushi();
 
             InitializeStats();
-
             InitializeEquipment();
         }
     }

@@ -21,8 +21,7 @@ namespace EtrianOdysseyClone.Data.Enemies
             BaseSpeed = 3;
             BaseLuck = 1;
 
-            Buffs = new List<Buffs.IBuff>();
-            Debuffs = new List<Debuffs.IDebuff>();
+            Buffs = new List<Buff>();
         }
 
         public PartyMember AttackPartyMember(PartyMember member)
