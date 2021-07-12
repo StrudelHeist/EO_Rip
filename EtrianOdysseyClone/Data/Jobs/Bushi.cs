@@ -8,6 +8,8 @@ namespace EtrianOdysseyClone.Data.Jobs
     {
         public List<ISkill> Skills { get; private set; }
 
+        public Job JobTitle { get { return Job.Bushi; } }
+
         public int StartingHP { get; set; }
         public int StartingTP { get; set; }
 

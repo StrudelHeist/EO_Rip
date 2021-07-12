@@ -7,6 +7,7 @@ namespace EtrianOdysseyClone.Data.Jobs
     public class Mage : IJob
     {
         public List<ISkill> Skills { get; private set; }
+        public Job JobTitle { get { return Job.Mage; } }
 
         public int StartingHP { get; set; }
         public int StartingTP { get; set; }

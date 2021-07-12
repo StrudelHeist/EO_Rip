@@ -1,0 +1,49 @@
+﻿@using EtrianOdysseyClone.Pages.Tools
+@using EtrianOdysseyClone.Models
+@using EtrianOdysseyClone.Data
+@using EtrianOdysseyClone.Data.Jobs
+@inject GameSession SessionInfo
+
+<img src="/Images/GuildDay.stex.png" class="object-cover w-full" asp-append-version="true" />,..
+<div class="absolute inset-y-0 flex flex-row">
+    <label>Select Adventures Class</label>
+    <div class="relative flex justify-center">
+        <PrimaryFloatingMenu MenuOptions="_jobSelectOptions"></PrimaryFloatingMenu>
+    </div>
+    @if (_requestInput)
+    {
+        <input @bind="_nameInput" />
+    }
+</div>
+
+@code {
+    private List<ButtonProperties> _jobSelectOptions;
+
+    private bool _requestInput;
+    private string _nameInput;
+
+    protected override void OnInitialized()
+    {
+        _requestInput = false;
+
+        _jobSelectOptions = new List<ButtonProperties>();
+        foreach (Job job in Enum.GetValues(typeof(Job)))
+        {
+            _jobSelectOptions.Add(new ButtonProperties()
+            {
+                ButtonName = job.ToString(),
+                ButtonAction = () => OnJobSelect(job),
+                ButtonDisabled = false
+            });
+        }
+    }
+    private void GotoLocation(OverworldLocation location)
+    {
+        SessionInfo.CurrentLocation = location;
+    }
+
+    private void OnJobSelect(Job newJob)
+    {
+
+    }
+}

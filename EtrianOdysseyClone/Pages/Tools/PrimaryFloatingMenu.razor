@@ -1,0 +1,28 @@
+﻿@using EtrianOdysseyClone.Models
+
+<div>
+    @foreach (var option in MenuOptions)
+    {
+        <div>
+            <div class="flex flex-col justify-evenly mr-3">
+                <button disabled="@option.ButtonDisabled" class="Disabled:opacity-50 bg-blue-300 rounded-r-lg text-center text-wrap px-20 py-2 text-gray-700 font-bold border-2 border-gray-600" @onclick="() => OnOptionSelected(option)">@option.ButtonName</button>
+            </div>
+        </div>
+    }
+</div>
+@code {
+    [Parameter]
+    public List<ButtonProperties> MenuOptions { get; set; }
+
+
+    private void OnOptionSelected(ButtonProperties selectedOption)
+    {
+        foreach (var option in MenuOptions)
+        {
+            option.ButtonDisabled = false;
+        }
+        selectedOption.ButtonDisabled = true;
+
+        selectedOption.ButtonAction();
+    }
+}

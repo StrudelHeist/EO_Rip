@@ -3,32 +3,31 @@
 @inject GameSession SessionInfo
 
 <div class="flex flex-row">
-    <div>
-        <PrimarySideMenu OptionNames="_menuOptions" OptionSelected="@OnMenuSelection"></PrimarySideMenu>
+    <div class="flex justify-center">
+        <PrimarySideMenu MenuOptions="_menuOptions"></PrimarySideMenu>
     </div>
     <div>
-        <h3>Guild</h3>
-        <img src="/Images/Guild.jpg" asp-append-version="true" />
+        <img src="/Images/GuildDay.stex.png" asp-append-version="true" />
         <label>@_selectedOption</label>
     </div>
 </div>
-    @code {
-        private List<string> _menuOptions;
-        private string _selectedOption;
+@code {
+    private Dictionary<string, Action> _menuOptions;
+    private string _selectedOption;
 
-        protected override void OnInitialized()
-        {
-            _menuOptions = new List<string>() { "Register", "Organize", "Formation", "Leave" };
-        }
-
-        private void OnMenuSelection(string selectedOption)
-        {
-            _selectedOption = selectedOption;
-            switch (selectedOption)
-            {
-                case "Leave":
-                    SessionInfo.CurrentLocation = OverworldLocation.Town;
-                    break;
-            }
-        }
+    protected override void OnInitialized()
+    {
+        _menuOptions = new Dictionary<string, Action>()
+    {
+            { "Register", () => GotoLocation(OverworldLocation.Recruitment)},
+            { "Organize", () => GotoLocation(OverworldLocation.Guild)},
+            { "Formation", () => GotoLocation(OverworldLocation.Guild)},
+            { "Leave", () => GotoLocation(OverworldLocation.Town)}
+        };
     }
+
+    private void GotoLocation(OverworldLocation location)
+    {
+        SessionInfo.CurrentLocation = location;
+    }
+}

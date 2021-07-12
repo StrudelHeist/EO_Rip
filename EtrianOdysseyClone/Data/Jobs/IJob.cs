@@ -14,6 +14,7 @@ namespace EtrianOdysseyClone.Data.Jobs
         // TODO: Level up method (different classes/jobs should level up differently)
 
         // Starting stats per job
+        public Job JobTitle { get; }
         public int StartingHP { get; set; }
         public int StartingTP { get; set; }
 
