@@ -8,7 +8,7 @@
 <div class="bg-rocks h-screen">
     <!-- Battle information -->
     <div class="w-full bg-blue-500 p-2 opacity-90">
-        <label class="text-gray-100 pl-1 text-lg">A horde of enemies has appeared!</label>
+        <label class="text-gray-100 pl-1 text-lg">@Text</label>
     </div>
 
     <div class="flex p-2">
@@ -137,18 +137,14 @@
 </div>
 
 @code {
-    public enum BattleState
-    {
-        ACTION_SELECTION,
-        CONFIRM,
-        BATTLING
-    }
+    private Random _random;
 
     public Party Party { get; private set; } // Get this from GameSession when we actually implement this
     public List<Enemy> Enemies { get; private set; } // This should be randomly generated to include floor appropriate enemies
 
     public List<BattleAction> BattleActions { get; private set; }
 
+    public string Text { get; private set; }
     public bool SkillMenuOpen { get; private set; }
     public bool ShowPortrait { get; private set; }
     public PartyMember SelectedMember
@@ -159,11 +155,14 @@
         }
     }
     public int CurrentMemberIdx { get; private set; }
-    public BattleState State { get; private set; }
     public List<ISkill> SkillMenuSkills { get; private set; }
 
     protected override void OnInitialized()
     {
+        _random = new Random();
+
+        Text = "A horde of enemies has appeared!";
+
         Party = new Party();
         Party.Members.Add(new Braven(0));
         Party.Members.Add(new Brian(1));
@@ -181,7 +180,6 @@
 
         SkillMenuOpen = false;
         CurrentMemberIdx = 0;
-        State = BattleState.ACTION_SELECTION;
         ShowPortrait = true;
 
         base.OnInitialized();
@@ -191,6 +189,7 @@
     {
         // TODO: Have user click on enemy to attack
         ShowPortrait = false;
+        Text = "Select an enemy to attack";
     }
     public void SkillClicked()
     {
@@ -203,7 +202,21 @@
     }
     public void DefendClicked()
     {
-        // TODO: Add a defense buff to party member
+        // Add a defense buff to party member
+        BattleActions.Add(new BattleAction()
+        {
+            ActionSpeed = 0,
+            ActualAction = () =>
+            {
+                Party.Members[CurrentMemberIdx].Buffs.Add(new Buff()
+                {
+                    DefenseModifier = 5
+                });
+            },
+            ActionInformation = $"{Party.Members[CurrentMemberIdx].Name} is defending"
+        });
+
+        AdvanceTurn();
     }
     public void ItemClicked()
     {
@@ -238,21 +251,11 @@
             ActionInformation = $"{Party.Members[CurrentMemberIdx].Name} attacks {Enemies[idx].Name}"
         });
 
-        // Move to next party member
-        ShowPortrait = true;
-        // --> If no party members left, then confirm turn end
-        if (CurrentMemberIdx + 1 >= Party.Members.Count)
-        {
-            State = BattleState.CONFIRM;
-            return;
-        }
-        else
-            CurrentMemberIdx += 1;
-
+        AdvanceTurn();
     }
     public void SkillSelected(ISkill skill)
     {
-        // Pick target for skill depending on skill type
+        // TODO: Pick target for skill depending on skill type
 
         BattleActions.Add(new BattleAction()
         {
@@ -264,21 +267,26 @@
             ActionInformation = $"{Party.Members[CurrentMemberIdx].Name} uses {skill.Name}"
         });
 
-        SkillMenuOpen = false;
-        if (CurrentMemberIdx + 1 >= Party.Members.Count)
-        {
-            State = BattleState.CONFIRM;
-            return;
-        }
-        else
-            CurrentMemberIdx += 1;
+        AdvanceTurn();
     }
 
-    private void BattleSequence()
+    private async void BattleSequence()
     {
-        // Go through actions organized by speed
+        // Sort battle actions by speed
+        BattleActions.Sort((BattleAction a, BattleAction b) =>
+        {
+            return a.ActionSpeed.CompareTo(b.ActionSpeed) * -1; // -1 reverses list order
+        });
 
-        // Show information on the top bar
+        // Go through actions
+        foreach(BattleAction bAction in BattleActions)
+        {
+            Text = bAction.ActionInformation;
+            bAction.ActualAction();
+
+            // TODO: Maybe have user confirm action
+            await Task.Delay(2000);
+        }
     }
 
     private string HighlightPartyMember(int idx)
@@ -298,5 +306,49 @@
             return "";
         else
             return "hover:bg-yellow-300 rounded";
+    }
+
+    private void AdvanceTurn()
+    {
+        // Execute battle sequence
+        if (CurrentMemberIdx + 1 >= Party.Members.Count)
+        {
+            ShowPortrait = false;
+            SkillMenuOpen = false;
+
+            // TODO: Confirm before battle sequence
+
+            // Add enemy actions
+            foreach(var enemy in Enemies)
+            {
+                if (enemy is Placeholder)
+                    continue;
+
+                int randomPartyIdx = _random.Next() % Party.Members.Count;
+                BattleActions.Add(new BattleAction()
+                {
+                    ActionSpeed = enemy.ActualSpeed,
+                    ActualAction = () =>
+                    {
+                        int damage = enemy.ActualStrength - Party.Members[randomPartyIdx].ActualDefense;
+                        if (damage > 0)
+                            Party.Members[randomPartyIdx].ActualHP -= damage;
+                    },
+                    ActionInformation = $"{enemy.Name} attacks {Party.Members[randomPartyIdx]}"
+                });
+            }
+
+            BattleSequence();
+
+            CurrentMemberIdx = 0;
+            ShowPortrait = true;
+        }
+        else
+        {
+            Text = "A horder of enemies has appeared";
+            ShowPortrait = true;
+            SkillMenuOpen = false;
+            CurrentMemberIdx += 1;
+        }
     }
 }
