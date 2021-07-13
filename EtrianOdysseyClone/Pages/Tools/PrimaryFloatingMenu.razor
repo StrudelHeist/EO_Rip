@@ -5,7 +5,7 @@
     {
         <div>
             <div class="flex flex-col justify-evenly mr-3">
-                <button disabled="@option.ButtonDisabled" class="Disabled:opacity-50 bg-blue-300 rounded-lg text-center text-wrap px-20 py-2 text-gray-700 font-bold border-2 border-gray-600" @onclick="() => OnOptionSelected(option)">@option.ButtonName</button>
+                <button type="button" disabled="@option.ButtonDisabled" class="disabled:opacity-100 opacity-50 bg-blue-300 rounded-lg text-center text-wrap px-20 py-2 text-gray-700 font-bold border-2 border-gray-600" @onclick="() => OnOptionSelected(option)">@option.ButtonName</button>
             </div>
         </div>
     }
@@ -24,5 +24,6 @@
         selectedOption.ButtonDisabled = true;
 
         selectedOption.ButtonAction();
+        StateHasChanged();
     }
 }
