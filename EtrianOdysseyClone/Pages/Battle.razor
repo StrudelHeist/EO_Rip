@@ -195,6 +195,7 @@
     {
         // Have user choose a skill
         SkillMenuSkills.Clear();
+        if (SelectedMember.Job.Skills != null)
         foreach (ISkill skill in SelectedMember.Job.Skills)
             SkillMenuSkills.Add(skill);
         SkillMenuOpen = true;
