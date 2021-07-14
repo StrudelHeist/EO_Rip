@@ -4,23 +4,12 @@ using System.Collections.Generic;
 namespace EtrianOdysseyClone.Data.Jobs
 {
     // Tank / Party Protector
-    public class Defender : IJob
+    public class Defender : BaseJob
     {
-        public List<ISkill> Skills { get; private set; }
-        public Job JobTitle { get { return Job.Defender; } }
-
-        public int StartingHP { get; set; }
-        public int StartingTP { get; set; }
-
-        public int StartingStrength { get; set; }
-        public int StartingMagicStrength { get; set; }
-        public int StartingDefense { get; set; }
-        public int StartingMagicDefense { get; set; }
-        public int StartingSpeed { get; set; }
-        public int StartingLuck { get; set; }
-
         public Defender()
         {
+            JobTitle = Job.Defender;
+
             StartingHP = 25;
             StartingTP = 7;
 
