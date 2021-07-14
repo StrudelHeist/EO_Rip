@@ -151,6 +151,7 @@
 @code {
     private Random _random;
     private bool _shouldAdvance;
+    private ISkill _lastSelectedSkill;
 
     public Party Party { get; private set; } // Get this from GameSession when we actually implement this
     public Horde Enemies { get; private set; } // This should be randomly generated to include floor appropriate enemies
@@ -245,37 +246,41 @@
             return;
 
         // TODO: Set target enemy for party member and continue
-        BattleActions.Add(new BattleAction()
+        BattleAction bAction = new BattleAction();
+        bAction.ActionSpeed = SelectedMember.ActualSpeed;
+        if (_lastSelectedSkill != null)
         {
-            ActionSpeed = SelectedMember.ActualSpeed,
-            ActualAction = () =>
+            var tempSkill = _lastSelectedSkill;
+            bAction.ActualAction = () =>
+            {
+                SelectedMember.ActualTP -= tempSkill.TpCost;
+                tempSkill.ExecuteSkill(SelectedMember, new List<ITarget>() { targetEnemy });
+            };
+            bAction.ActionInformation = $"{SelectedMember.Name} uses {_lastSelectedSkill.Name} on {targetEnemy.Name}";
+            _lastSelectedSkill = null;
+        }
+        else
+        {
+            bAction.ActualAction = () =>
             {
                 int damage = SelectedMember.ActualStrength - targetEnemy.ActualDefense;
                 if (damage > 0)
                 {
                     targetEnemy.ActualHP -= damage;
                 }
-            },
-            ActionInformation = $"{SelectedMember.Name} attacks {targetEnemy.Name}"
-        });
+            };
+            bAction.ActionInformation = $"{SelectedMember.Name} attacks {targetEnemy.Name}";
+        }
+        BattleActions.Add(bAction);
 
         await AdvanceTurn();
     }
-    public async void SkillSelected(ISkill skill)
+    public void SkillSelected(ISkill skill)
     {
-        // TODO: Pick target for skill depending on skill type
-
-        BattleActions.Add(new BattleAction()
-        {
-            ActionSpeed = SelectedMember.ActualSpeed,
-            ActualAction = () =>
-            {
-                //skill.ExecuteSkill(Party.Members[CurrentMemberIdx], )
-            },
-            ActionInformation = $"{SelectedMember.Name} uses {skill.Name}"
-        });
-
-        await AdvanceTurn();
+        // Pick target for skill depending on skill type
+        SkillMenuOpen = false;
+        ShowPortrait = false;
+        _lastSelectedSkill = skill;
     }
 
     private async Task BattleSequence()
@@ -383,8 +388,5 @@
         while (Party.AllMembers[nextPosition] == null);
 
         CurrentPartyPosition = (FormationPosition)nextPosition;
-    }
-    private void AdvanceBattle()
-    {
     }
 }
