@@ -21,7 +21,7 @@
             <PrimaryFloatingMenu MenuOptions="_characterSelectOptions"></PrimaryFloatingMenu>
             @if (_characterSelected)
             {
-                <button class="btn bg-green-300 rounded-lg px-20 py-2 mt-10 h-14">Confirm</button>
+                <button class="btn bg-green-300 rounded-lg px-20 py-2 m-10 h-14">Confirm</button>
             }
         </div>
     }
@@ -83,6 +83,8 @@
     {
         _selectedCharacter = character;
         _characterSelected = true;
+
+        StateHasChanged();
     }
     #endregion
 
