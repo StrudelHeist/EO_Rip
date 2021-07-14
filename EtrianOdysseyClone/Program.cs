@@ -11,6 +11,8 @@ namespace EtrianOdysseyClone
 {
     public class Program
     {
+        private static string _appSettingsPath = "appsettings.json";
+
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
@@ -18,6 +20,13 @@ namespace EtrianOdysseyClone
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    config.Sources.Clear();
+                    config.AddJsonFile(_appSettingsPath,
+                        optional: false,
+                        reloadOnChange: true);
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

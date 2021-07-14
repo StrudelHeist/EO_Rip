@@ -1,4 +1,5 @@
 using EtrianOdysseyClone.Data;
+using EtrianOdysseyClone.Data.Config;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -20,6 +21,10 @@ namespace EtrianOdysseyClone
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            // Load configuration
+            var characterSection = Configuration.GetSection("CharacterConfig");
+            services.Configure<CharacterConfigSection>(characterSection);
+
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<GameSession>();
