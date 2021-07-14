@@ -4,10 +4,6 @@
 @using EtrianOdysseyClone.Data.Characters
 @using EtrianOdysseyClone.Data.Enemies
 @using EtrianOdysseyClone.Data.Skills 
-@using EtrianOdysseyClone.Data.Config
-@using Microsoft.Extensions.Options
-
-@inject IOptionsSnapshot<CharacterConfigSection> CharacterConfig
 
 <div class="bg-rocks h-screen">
     <!-- Battle information -->
@@ -178,8 +174,6 @@
     {
         _random = new Random();
         _shouldAdvance = false;
-
-        var configs = CharacterConfig.Value;
 
         Text = "A horde of enemies has appeared!";
 
