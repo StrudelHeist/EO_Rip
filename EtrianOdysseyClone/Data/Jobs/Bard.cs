@@ -4,24 +4,12 @@ using System.Collections.Generic;
 namespace EtrianOdysseyClone.Data.Jobs
 {
     // Healer / Enhance Party Stats
-    public class Bard : IJob
+    public class Bard : BaseJob, IJob
     {
-        public List<ISkill> Skills { get; private set; }
-
-        public Job JobTitle { get { return Job.Bard; } }
-
-        public int StartingHP { get; set; }
-        public int StartingTP { get; set; }
-
-        public int StartingStrength { get; set; }
-        public int StartingMagicStrength { get; set; }
-        public int StartingDefense { get; set; }
-        public int StartingMagicDefense { get; set; }
-        public int StartingSpeed { get; set; }
-        public int StartingLuck { get; set; }
-
         public Bard()
         {
+            JobTitle = Job.Bard;
+
             StartingHP = 10;
             StartingTP = 20;
 

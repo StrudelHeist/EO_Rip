@@ -9,6 +9,7 @@ namespace EtrianOdysseyClone.Data.Jobs
     {
         Bard,
         Bushi,
+        DarkHunter,
         Defender,
         Hero,
         Mage,

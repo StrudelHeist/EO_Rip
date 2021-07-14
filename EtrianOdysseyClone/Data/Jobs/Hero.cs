@@ -4,24 +4,13 @@ using System.Collections.Generic;
 namespace EtrianOdysseyClone.Data.Jobs
 {
     // All Around
-    public class Hero : IJob
+    public class Hero : BaseJob
     {
-        public List<ISkill> Skills { get; private set; }
-        public Job JobTitle { get { return Job.Hero; } }
-
-        public int StartingHP { get; set; }
-        public int StartingTP { get; set; }
-
-        public int StartingStrength { get; set; }
-        public int StartingMagicStrength { get; set; }
-        public int StartingDefense { get; set; }
-        public int StartingMagicDefense { get; set; }
-        public int StartingSpeed { get; set; }
-        public int StartingLuck { get; set; }
-
         // 48 total points
         public Hero()
         {
+            JobTitle = Job.Hero;
+
             StartingHP = 20;
             StartingTP = 10;
 
