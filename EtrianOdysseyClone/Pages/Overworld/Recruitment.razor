@@ -4,7 +4,10 @@
 @using EtrianOdysseyClone.Models
 @using EtrianOdysseyClone.Data
 @using EtrianOdysseyClone.Data.Jobs
+@using EtrianOdysseyClone.Data.Config;
+@using Microsoft.Extensions.Options;
 @inject GameSession SessionInfo
+@inject IOptionsSnapshot<CharacterConfigSection> CharacterConfig
 
 <img src="/Images/GuildDay.stex.png" class="object-cover sticky top-0 w-full" asp-append-version="true" />,..
 <div class="absolute inset-y-0 flex flex-row">
@@ -23,9 +26,12 @@
 
 @code {
     private List<ButtonProperties> _jobSelectOptions;
+    private Job selectedJob;
+
+    private List<ButtonProperties> _characterSelectOptions;
+    private CharacterConfig selectedCharacter;
 
     private bool _requestInput;
-    private Job slectedJob;
     private string _nameInput;
 
     protected override void OnInitialized()
@@ -33,6 +39,8 @@
         _requestInput = false;
 
         _jobSelectOptions = new List<ButtonProperties>();
+        _characterSelectOptions = new List<ButtonProperties>();
+
         foreach (Job job in Enum.GetValues(typeof(Job)))
         {
             _jobSelectOptions.Add(new ButtonProperties()
@@ -43,16 +51,11 @@
             });
         }
     }
+
+    #region EventHandlers
     private void GotoLocation(OverworldLocation location)
     {
         SessionInfo.CurrentLocation = location;
-    }
-
-    private void OnJobSelect(Job newJob)
-    {
-        slectedJob = newJob;
-        _requestInput = true;
-        StateHasChanged();
     }
 
     private void OnConfirm(string name)
@@ -60,4 +63,36 @@
         //new PartyMember();
         //SessionInfo.Party.AddPartyMember();
     }
+
+    private void OnJobSelect(Job newJob)
+    {
+        selectedJob = newJob;
+        _requestInput = true;
+        StateHasChanged();
+    }
+
+    private void OnCharacterSelect(CharacterConfig character)
+    {
+        selectedCharacter = character;
+    }
+    #endregion
+
+    #region HelperFunctions
+    private void DisplayCharacterOptions(Job job)
+    {
+        foreach (var character in CharacterConfig.Value.Characters)
+        {
+            if (character.Job == Enum.GetName<Job>(job))
+            {
+                _characterSelectOptions.Add(new ButtonProperties()
+                {
+                    ButtonName = character.Name,
+                    ButtonAction = () => OnCharacterSelect(character),
+                    ButtonDisabled = false
+                });
+            }
+        }
+    }
+    #endregion
+
 }
