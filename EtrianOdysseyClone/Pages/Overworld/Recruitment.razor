@@ -1,18 +1,20 @@
-﻿@using EtrianOdysseyClone.Pages.Tools
+﻿@page "/Recruitment"
+
+@using EtrianOdysseyClone.Pages.Tools
 @using EtrianOdysseyClone.Models
 @using EtrianOdysseyClone.Data
 @using EtrianOdysseyClone.Data.Jobs
 @inject GameSession SessionInfo
 
-<img src="/Images/GuildDay.stex.png" class="object-cover w-full" asp-append-version="true" />,..
+<img src="/Images/GuildDay.stex.png" class="object-cover sticky top-0 w-full" asp-append-version="true" />,..
 <div class="absolute inset-y-0 flex flex-row">
-    <label>Select Adventures Class</label>
-    <div class="relative flex justify-center">
+    <label class="text-white">Select Adventures Class</label>
+    <div class="left-0 relative flex justify-center">
         <PrimaryFloatingMenu MenuOptions="_jobSelectOptions"></PrimaryFloatingMenu>
     </div>
     @if (_requestInput)
     {
-        <input @bind="_nameInput" />
+        <input @bind-value="_nameInput" class="text-base h-10" />
     }
 </div>
 
@@ -44,6 +46,7 @@
 
     private void OnJobSelect(Job newJob)
     {
-
+        _requestInput = true;
+        StateHasChanged();
     }
 }
