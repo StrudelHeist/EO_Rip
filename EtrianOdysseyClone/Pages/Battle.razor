@@ -7,8 +7,13 @@
 
 <div class="bg-rocks h-screen">
     <!-- Battle information -->
-    <div class="w-full bg-blue-500 p-2 opacity-90">
+    <div class="w-full bg-blue-500 p-2 opacity-90 flex justify-between">
         <label class="text-gray-100 pl-1 text-lg">@Text</label>
+        <button type="button" @onclick="AdvanceBattle" class="w-5 border rounded border-blue-100">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="text-white" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+            </svg>
+        </button>
     </div>
 
     <div class="flex p-2">
@@ -26,121 +31,110 @@
         <div class="relative w-full h-64">
             <!-- Enemy lines -->
             <div class="pl-2 grid grid-cols-3 grid-rows-2">
-                @for(int i = 0; i < 6; i++)
-                {
-                <button @onclick="() => EnemyClicked(EnemyLineIdx(i))" type="button" class="h-32 place-self-center">
-                    @if(Enemies[EnemyLineIdx(i)] is not Placeholder)
+                <button @onclick="() => EnemyClicked(Enemies.GetAtPosition(FormationPosition.BACK_0))" type="button" class="h-32 place-self-center">
+                    @if (Enemies.GetAtPosition(FormationPosition.BACK_0) is not null)
                     {
-                        <img class="h-32 @EnemySelectable()" src=@Enemies[EnemyLineIdx(i)].ImagePath />
+                        <img class="h-32 @EnemySelectable()" src=@Enemies.GetAtPosition(FormationPosition.BACK_0).ImagePath />
                     }
                 </button>
-                }
+                <button @onclick="() => EnemyClicked(Enemies.GetAtPosition(FormationPosition.BACK_1))" type="button" class="h-32 place-self-center">
+                    @if (Enemies.GetAtPosition(FormationPosition.BACK_1) is not null)
+                    {
+                        <img class="h-32 @EnemySelectable()" src=@Enemies.GetAtPosition(FormationPosition.BACK_1).ImagePath />
+                    }
+                </button>
+                <button @onclick="() => EnemyClicked(Enemies.GetAtPosition(FormationPosition.BACK_2))" type="button" class="h-32 place-self-center">
+                    @if (Enemies.GetAtPosition(FormationPosition.BACK_2) is not null)
+                    {
+                        <img class="h-32 @EnemySelectable()" src=@Enemies.GetAtPosition(FormationPosition.BACK_2).ImagePath />
+                    }
+                </button>
+                <button @onclick="() => EnemyClicked(Enemies.GetAtPosition(FormationPosition.FRONT_0))" type="button" class="h-32 place-self-center">
+                    @if (Enemies.GetAtPosition(FormationPosition.FRONT_0) is not null)
+                    {
+                        <img class="h-32 @EnemySelectable()" src=@Enemies.GetAtPosition(FormationPosition.FRONT_0).ImagePath />
+                    }
+                </button>
+                <button @onclick="() => EnemyClicked(Enemies.GetAtPosition(FormationPosition.FRONT_1))" type="button" class="h-32 place-self-center">
+                    @if (Enemies.GetAtPosition(FormationPosition.FRONT_1) is not null)
+                    {
+                        <img class="h-32 @EnemySelectable()" src=@Enemies.GetAtPosition(FormationPosition.FRONT_1).ImagePath />
+                    }
+                </button>
+                <button @onclick="() => EnemyClicked(Enemies.GetAtPosition(FormationPosition.FRONT_2))" type="button" class="h-32 place-self-center">
+                    @if (Enemies.GetAtPosition(FormationPosition.FRONT_2) is not null)
+                    {
+                        <img class="h-32 @EnemySelectable()" src=@Enemies.GetAtPosition(FormationPosition.FRONT_2).ImagePath />
+                    }
+                </button>
             </div>
 
             <!-- Character Profile -->
             @if (ShowPortrait)
             {
-            <div class="absolute right-0 inset-y-0">
-                <img class="h-64" src=@SelectedMember.ImagePath />
-            </div>
+                <div class="absolute right-0 inset-y-0">
+                    <img class="h-64" src=@SelectedMember.ImagePath />
+                </div>
             }
 
             <!-- Skills menu -->
             @if (SkillMenuOpen)
             {
-            <div class="absolute inset-y-0 left-3 bg-blue-600 opacity-90 rounded border-2 border-yellow-100">
-                <div class="flex flex-col gap-1 p-2">
-                    @foreach (var skill in SkillMenuSkills)
-                    {
-                    <button @onclick="() => SkillSelected(skill)" type="button" class="bg-blue-50 px-2">
-                        <div class="flex justify-between">
-                            <label class="text-blue-900 font-semibold">@skill.Name</label>
-                            <label class="pl-2">@skill.TpCost</label>
-                        </div>
-                    </button>
-                    }
+                <div class="absolute inset-y-0 left-3 bg-blue-600 opacity-90 rounded border-2 border-yellow-100">
+                    <div class="flex flex-col gap-1 p-2">
+                        @foreach (var skill in SkillMenuSkills)
+                        {
+                            <button @onclick="() => SkillSelected(skill)" type="button" class="bg-blue-50 px-2">
+                                <div class="flex justify-between">
+                                    <label class="text-blue-900 font-semibold">@skill.Name</label>
+                                    <label class="pl-2">@skill.TpCost</label>
+                                </div>
+                            </button>
+                        }
+                    </div>
                 </div>
-            </div>
             }
         </div>
     </div>
 
     <!-- Party Info -->
     <div class="grid grid-cols-3 grid-rows-2 gap-1 px-2">
-        <!-- Front Line Position 1 -->
-        <div class="@HighlightPartyMember(0)">
+        @for (int i = 0; i < 6; i++)
+        {
+        <div class="@HighlightPartyMember(i)">
             <div class="bg-blue-700 rounded  flex flex-col justify-between">
-                @if (Party.Members.ElementAt(0) != null)
+                @if (Party.GetAtPosition((FormationPosition)i) != null)
                 {
-                <div class="flex justify-between">
-                    <div class="text-blue-50 font-bold pl-2 lg:pl-5 text-lg">@Party.Members[0].Name</div>
-                    <div class="flex">
-                        <div class="text-blue-200 pr-2">Lv</div>
-                        <div class="font-semibold text-blue-50 pr-2">@Party.Members[0].Level</div>
+                    <div class="flex justify-between">
+                        <div class="text-blue-50 font-bold pl-2 lg:pl-5 text-lg">@Party.GetAtPosition((FormationPosition)i).Name</div>
+                        <div class="flex">
+                            <div class="text-blue-200 pr-2">Lv</div>
+                            <div class="font-semibold text-blue-50 pr-2">@Party.GetAtPosition((FormationPosition)i).Level</div>
+                        </div>
                     </div>
-                </div>
-                <div class="flex justify-between bg-black rounded-b">
-                    <div class="flex">
-                        <div class="pl-2 text-blue-200">HP</div>
-                        <div class="pl-2 text-blue-50 font-semibold">@Party.Members[0].ActualHP/@Party.Members[0].BaseHP</div>
+                    <div class="flex justify-between bg-black rounded-b">
+                        <div class="flex">
+                            <div class="pl-2 text-blue-200">HP</div>
+                            <div class="pl-2 text-blue-50 font-semibold">@Party.GetAtPosition((FormationPosition)i).ActualHP/@Party.GetAtPosition((FormationPosition)i).BaseHP</div>
+                        </div>
+                        <div class="flex">
+                            <div class="pr-2 text-blue-200">TP</div>
+                            <div class="pr-2 text-blue-50 font-semibold">@Party.GetAtPosition((FormationPosition)i).ActualTP/@Party.GetAtPosition((FormationPosition)i).BaseTP</div>
+                        </div>
                     </div>
-                    <div class="flex">
-                        <div class="pr-2 text-blue-200">TP</div>
-                        <div class="pr-2 text-blue-50 font-semibold">@Party.Members[0].ActualTP/@Party.Members[0].BaseTP</div>
-                    </div>
-                </div>
                 }
             </div>
         </div>
-        <!-- Front Line Position 2-->
-        <div class="@HighlightPartyMember(1)">
-            <div class="bg-blue-700 rounded flex flex-col justify-between">
-                @if (Party.Members.ElementAt(1) != null)
-                {
-                <div class="flex justify-between">
-                    <div class="flex">
-                        <div class="text-blue-200 pl-2">Lv</div>
-                        <div class="font-semibold text-blue-50 pl-2">@Party.Members[1].Level</div>
-                    </div>
-                    <div class="text-blue-50 font-bold pr-2 lg:pr-5 text-lg">@Party.Members[1].Name</div>
-                </div>
-                <div class="flex justify-between bg-black rounded-b">
-                    <div class="flex">
-                        <div class="pl-2 text-blue-200">HP</div>
-                        <div class="pl-2 text-blue-50 font-semibold">@Party.Members[1].ActualHP/@Party.Members[1].BaseHP</div>
-                    </div>
-                    <div class="flex">
-                        <div class="pr-2 text-blue-200">TP</div>
-                        <div class="pr-2 text-blue-50 font-semibold">@Party.Members[1].ActualTP/@Party.Members[1].BaseTP</div>
-                    </div>
-                </div>
-                }
-            </div>
-        </div>
-        <div class="p-1">
-            <div class="bg-blue-700 rounded flex flex-col justify-between">
-            </div>
-        </div>
-        <div class="p-1">
-            <div class="bg-blue-700 rounded flex flex-col justify-between">
-            </div>
-        </div>
-        <div class="p-1">
-            <div class="bg-blue-700 rounded flex flex-col justify-between">
-            </div>
-        </div>
-        <div class="p-1">
-            <div class="bg-blue-700 rounded flex flex-col justify-between">
-            </div>
-        </div>
+        }
     </div>
 </div>
 
 @code {
     private Random _random;
+    private bool _shouldAdvance;
 
     public Party Party { get; private set; } // Get this from GameSession when we actually implement this
-    public List<Enemy> Enemies { get; private set; } // This should be randomly generated to include floor appropriate enemies
+    public Horde Enemies { get; private set; } // This should be randomly generated to include floor appropriate enemies
 
     public List<BattleAction> BattleActions { get; private set; }
 
@@ -151,35 +145,32 @@
     {
         get
         {
-            return Party.Members[CurrentMemberIdx];
+            return Party.AllMembers[(int)CurrentPartyPosition];
         }
     }
-    public int CurrentMemberIdx { get; private set; }
+    public FormationPosition CurrentPartyPosition { get; private set; }
     public List<ISkill> SkillMenuSkills { get; private set; }
 
     protected override void OnInitialized()
     {
         _random = new Random();
+        _shouldAdvance = false;
 
         Text = "A horde of enemies has appeared!";
 
         Party = new Party();
-        Party.Members.Add(new Braven(0));
-        Party.Members.Add(new Brian(1));
+        Party.AddPartyMember(new Braven(0), FormationPosition.FRONT_0);
+        Party.AddPartyMember(new Brian(1), FormationPosition.FRONT_1);
 
-        Enemies = new List<Enemy>();
-        Enemies.Add(new FatChicken(0));
-        Enemies.Add(new FatChicken(1));
-        Enemies.Add(new Placeholder());
-        Enemies.Add(new Placeholder());
-        Enemies.Add(new Placeholder());
-        Enemies.Add(new Placeholder());
+        Enemies = new Horde();
+        Enemies.AddEnemy(new FatChicken(0), FormationPosition.FRONT_0);
+        Enemies.AddEnemy(new FatChicken(1), FormationPosition.FRONT_1);
 
         SkillMenuSkills = new List<ISkill>();
         BattleActions = new List<BattleAction>();
 
         SkillMenuOpen = false;
-        CurrentMemberIdx = 0;
+        CurrentPartyPosition = FormationPosition.FRONT_0;
         ShowPortrait = true;
 
         base.OnInitialized();
@@ -196,8 +187,8 @@
         // Have user choose a skill
         SkillMenuSkills.Clear();
         if (SelectedMember.Job.Skills != null)
-        foreach (ISkill skill in SelectedMember.Job.Skills)
-            SkillMenuSkills.Add(skill);
+            foreach (ISkill skill in SelectedMember.Job.Skills)
+                SkillMenuSkills.Add(skill);
         SkillMenuOpen = true;
 
     }
@@ -209,12 +200,12 @@
             ActionSpeed = 0,
             ActualAction = () =>
             {
-                Party.Members[CurrentMemberIdx].Buffs.Add(new Buff()
+                SelectedMember.Buffs.Add(new Buff()
                 {
                     DefenseModifier = 5
                 });
             },
-            ActionInformation = $"{Party.Members[CurrentMemberIdx].Name} is defending"
+            ActionInformation = $"{SelectedMember.Name} is defending"
         });
 
         AdvanceTurn();
@@ -228,7 +219,7 @@
         // TODO: Handle run/escape logic
     }
 
-    public void EnemyClicked(int idx)
+    public void EnemyClicked(Enemy targetEnemy)
     {
         // Ignore enemy clicks unless we're selecting them
         if (ShowPortrait)
@@ -237,19 +228,16 @@
         // TODO: Set target enemy for party member and continue
         BattleActions.Add(new BattleAction()
         {
-            ActionSpeed = Party.Members[CurrentMemberIdx].ActualSpeed,
+            ActionSpeed = SelectedMember.ActualSpeed,
             ActualAction = () =>
             {
-                ITarget target = Enemies[idx];
-                ICaster member = Party.Members[CurrentMemberIdx];
-
-                int damage = member.ActualStrength - target.ActualDefense;
+                int damage = SelectedMember.ActualStrength - targetEnemy.ActualDefense;
                 if (damage > 0)
                 {
-                    target.ActualHP -= damage;
+                    targetEnemy.ActualHP -= damage;
                 }
             },
-            ActionInformation = $"{Party.Members[CurrentMemberIdx].Name} attacks {Enemies[idx].Name}"
+            ActionInformation = $"{SelectedMember.Name} attacks {targetEnemy.Name}"
         });
 
         AdvanceTurn();
@@ -260,18 +248,18 @@
 
         BattleActions.Add(new BattleAction()
         {
-            ActionSpeed = Party.Members[CurrentMemberIdx].ActualSpeed,
+            ActionSpeed = SelectedMember.ActualSpeed,
             ActualAction = () =>
             {
                 //skill.ExecuteSkill(Party.Members[CurrentMemberIdx], )
             },
-            ActionInformation = $"{Party.Members[CurrentMemberIdx].Name} uses {skill.Name}"
+            ActionInformation = $"{SelectedMember.Name} uses {skill.Name}"
         });
 
         AdvanceTurn();
     }
 
-    private async void BattleSequence()
+    private void BattleSequence()
     {
         // Sort battle actions by speed
         BattleActions.Sort((BattleAction a, BattleAction b) =>
@@ -284,15 +272,18 @@
         {
             Text = bAction.ActionInformation;
             bAction.ActualAction();
+            StateHasChanged();
 
-            // TODO: Maybe have user confirm action
-            await Task.Delay(2000);
+            // TODO: Wait for advance action
+            while (!_shouldAdvance)
+                System.Threading.Thread.Sleep(100);
+            _shouldAdvance = false;
         }
     }
 
     private string HighlightPartyMember(int idx)
     {
-        if (Party.Members[idx] == SelectedMember)
+        if (Party.AllMembers[idx] != null && Party.AllMembers[idx] == SelectedMember)
             return "bg-yellow-300 rounded p-1";
         else
             return "p-1";
@@ -300,6 +291,10 @@
     private int EnemyLineIdx(int idx)
     {
         return (idx + 3) % 6;
+    }
+    private string GetLinePositionName(int idx)
+    {
+        return ((FormationPosition)EnemyLineIdx(idx)).ToString();
     }
     private string EnemySelectable()
     {
@@ -312,7 +307,7 @@
     private void AdvanceTurn()
     {
         // Execute battle sequence
-        if (CurrentMemberIdx + 1 >= Party.Members.Count)
+        if (CurrentPartyPosition == Party.FinalPosition)
         {
             ShowPortrait = false;
             SkillMenuOpen = false;
@@ -320,28 +315,29 @@
             // TODO: Confirm before battle sequence
 
             // Add enemy actions
-            foreach(var enemy in Enemies)
+            for (int i = 0; i < 6; i++)
             {
-                if (enemy is Placeholder)
+                int i2 = i;
+                if (Enemies.AllEnemies[i2] == null)
                     continue;
 
-                int randomPartyIdx = _random.Next() % Party.Members.Count;
+                int randomPartyIdx = _random.Next() % Party.Count;
                 BattleActions.Add(new BattleAction()
                 {
-                    ActionSpeed = enemy.ActualSpeed,
+                    ActionSpeed = Enemies.AllEnemies[i2].ActualSpeed,
                     ActualAction = () =>
                     {
-                        int damage = enemy.ActualStrength - Party.Members[randomPartyIdx].ActualDefense;
+                        int damage = Enemies.AllEnemies[i2].ActualStrength - Party.GetAtRelativePosition(randomPartyIdx).ActualDefense;
                         if (damage > 0)
-                            Party.Members[randomPartyIdx].ActualHP -= damage;
+                            Party.GetAtRelativePosition(randomPartyIdx).ActualHP -= damage;
                     },
-                    ActionInformation = $"{enemy.Name} attacks {Party.Members[randomPartyIdx]}"
+                    ActionInformation = $"{Enemies.AllEnemies[i2].Name} attacks {Party.GetAtRelativePosition(randomPartyIdx).Name}"
                 });
             }
 
             BattleSequence();
 
-            CurrentMemberIdx = 0;
+            AdvancePartyPosition();
             ShowPortrait = true;
         }
         else
@@ -349,7 +345,25 @@
             Text = "A horder of enemies has appeared";
             ShowPortrait = true;
             SkillMenuOpen = false;
-            CurrentMemberIdx += 1;
+            AdvancePartyPosition();
         }
+    }
+    private void AdvancePartyPosition()
+    {
+        int nextPosition = (int)CurrentPartyPosition;
+
+        do
+        {
+            nextPosition++;
+            if (nextPosition > 5)
+                nextPosition = 0;
+        }
+        while (Party.AllMembers[nextPosition] == null);
+
+        CurrentPartyPosition = (FormationPosition)nextPosition;
+    }
+    private void AdvanceBattle()
+    {
+        _shouldAdvance = true;
     }
 }

@@ -32,33 +32,28 @@
 
     private void OnStay()
     {
-        if (SessionInfo.Party == null || SessionInfo.Party.Members.Count! > 0)
+        if (SessionInfo.Party == null || SessionInfo.Party.Count! > 0)
             return;
 
-        foreach (var member in SessionInfo.Party.Members)
-        {
-            if (member.ActualHP != 0)
-            {
-                member.ActualTP = member.BaseTP;
-                member.ActualHP = member.BaseHP;
-            }
-        }
+        SessionInfo.Party.RestoreParty();
 
         SessionInfo.Monies -= 5;
     }
 
     private void OnClinic()
     {
-        if (SessionInfo.Party == null || SessionInfo.Party.Members.Count! > 0)
+        if (SessionInfo.Party == null || SessionInfo.Party.Count! > 0)
             return;
 
-        foreach (var member in SessionInfo.Party.Members)
-        {
-            if (member.ActualHP == 0)
-            {
-                member.ActualHP = 1;
-            }
-        }
+        //foreach (var member in SessionInfo.Party.Members)
+        //{
+        //    if (member.ActualHP == 0)
+        //    {
+        //        member.ActualHP = 1;
+        //    }
+        //}
+
+        // TODO: Implement this in the future?
 
         SessionInfo.Monies -= 20;
     }
