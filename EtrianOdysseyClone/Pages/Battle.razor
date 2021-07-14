@@ -219,7 +219,7 @@
         // TODO: Handle run/escape logic
     }
 
-    public void EnemyClicked(Enemy targetEnemy)
+    public async void EnemyClicked(Enemy targetEnemy)
     {
         // Ignore enemy clicks unless we're selecting them
         if (ShowPortrait)
@@ -240,7 +240,7 @@
             ActionInformation = $"{SelectedMember.Name} attacks {targetEnemy.Name}"
         });
 
-        AdvanceTurn();
+        await AdvanceTurn();
     }
     public void SkillSelected(ISkill skill)
     {
@@ -259,7 +259,7 @@
         AdvanceTurn();
     }
 
-    private void BattleSequence()
+    private async Task BattleSequence()
     {
         // Sort battle actions by speed
         BattleActions.Sort((BattleAction a, BattleAction b) =>
@@ -275,9 +275,7 @@
             StateHasChanged();
 
             // TODO: Wait for advance action
-            while (!_shouldAdvance)
-                System.Threading.Thread.Sleep(100);
-            _shouldAdvance = false;
+            await Task.Delay(1500);
         }
     }
 
@@ -304,7 +302,7 @@
             return "hover:bg-yellow-300 rounded";
     }
 
-    private void AdvanceTurn()
+    private async Task AdvanceTurn()
     {
         // Execute battle sequence
         if (CurrentPartyPosition == Party.FinalPosition)
@@ -335,14 +333,16 @@
                 });
             }
 
-            BattleSequence();
+            await BattleSequence();
 
             AdvancePartyPosition();
             ShowPortrait = true;
+            Text = "A horde of enemies has appeared";
+            StateHasChanged();
         }
         else
         {
-            Text = "A horder of enemies has appeared";
+            Text = "A horde of enemies has appeared";
             ShowPortrait = true;
             SkillMenuOpen = false;
             AdvancePartyPosition();
@@ -364,6 +364,5 @@
     }
     private void AdvanceBattle()
     {
-        _shouldAdvance = true;
     }
 }

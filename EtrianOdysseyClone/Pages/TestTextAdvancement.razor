@@ -1,0 +1,24 @@
+﻿@page "/texttest"
+
+<div class="flex justify-center">
+    <label>@DisplayText</label>
+</div>
+
+<button type="button" @onclick="StartSequence" class="p-2 bg-blue-600 text-white">Start Sequence</button>
+
+@code {
+    public string DisplayText { get; private set; }
+
+    public List<string> DisplayStrings = new List<string>() { "Message 1", "Message 2", "Message 3" };
+
+    public async void StartSequence()
+    {
+        foreach(var message in DisplayStrings)
+        {
+            DisplayText = message;
+            StateHasChanged();
+
+            await Task.Delay(1500);
+        }
+    }
+}
