@@ -13,13 +13,15 @@ namespace EtrianOdysseyClone.Data.Enemies
 
             BaseHP = 30;
 
-            BaseStrength = 10;
+            BaseStrength = 5;
             BaseDefense = 2;
             BaseMagicStrength = 0;
             BaseMagicDefense = 1;
 
             BaseSpeed = 3;
             BaseLuck = 1;
+
+            ActualHP = BaseHP;
 
             Buffs = new List<Buff>();
         }

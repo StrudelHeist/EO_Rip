@@ -7,13 +7,8 @@
 
 <div class="bg-rocks h-screen">
     <!-- Battle information -->
-    <div class="w-full bg-blue-500 p-2 opacity-90 flex justify-between">
+    <div class="w-full bg-blue-500 p-2 opacity-90">
         <label class="text-gray-100 pl-1 text-lg">@Text</label>
-        <button type="button" @onclick="AdvanceBattle" class="w-5 border rounded border-blue-100">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="text-white" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-            </svg>
-        </button>
     </div>
 
     <div class="flex p-2">
@@ -31,40 +26,64 @@
         <div class="relative w-full h-64">
             <!-- Enemy lines -->
             <div class="pl-2 grid grid-cols-3 grid-rows-2">
-                <button @onclick="() => EnemyClicked(Enemies.GetAtPosition(FormationPosition.BACK_0))" type="button" class="h-32 place-self-center">
+                <button @onclick="() => EnemyClicked(Enemies.GetAtPosition(FormationPosition.BACK_0))" type="button" class="relative h-32 place-self-center">
                     @if (Enemies.GetAtPosition(FormationPosition.BACK_0) is not null)
                     {
                         <img class="h-32 @EnemySelectable()" src=@Enemies.GetAtPosition(FormationPosition.BACK_0).ImagePath />
+                        <div class="absolute inset-x-0 bottom-0 bg-white opacity-80">
+                            <label>HP</label>
+                            <label class="font-semibold">@Enemies.GetAtPosition(FormationPosition.BACK_0).ActualHP/@Enemies.GetAtPosition(FormationPosition.BACK_0).BaseHP</label>
+                        </div>
                     }
                 </button>
-                <button @onclick="() => EnemyClicked(Enemies.GetAtPosition(FormationPosition.BACK_1))" type="button" class="h-32 place-self-center">
+                <button @onclick="() => EnemyClicked(Enemies.GetAtPosition(FormationPosition.BACK_1))" type="button" class="relative h-32 place-self-center">
                     @if (Enemies.GetAtPosition(FormationPosition.BACK_1) is not null)
                     {
                         <img class="h-32 @EnemySelectable()" src=@Enemies.GetAtPosition(FormationPosition.BACK_1).ImagePath />
+                        <div class="absolute inset-x-0 bottom-0 bg-white opacity-80">
+                            <label>HP</label>
+                            <label class="font-semibold">@Enemies.GetAtPosition(FormationPosition.BACK_1).ActualHP/@Enemies.GetAtPosition(FormationPosition.BACK_1).BaseHP</label>
+                        </div>
                     }
                 </button>
-                <button @onclick="() => EnemyClicked(Enemies.GetAtPosition(FormationPosition.BACK_2))" type="button" class="h-32 place-self-center">
+                <button @onclick="() => EnemyClicked(Enemies.GetAtPosition(FormationPosition.BACK_2))" type="button" class="relative h-32 place-self-center">
                     @if (Enemies.GetAtPosition(FormationPosition.BACK_2) is not null)
                     {
                         <img class="h-32 @EnemySelectable()" src=@Enemies.GetAtPosition(FormationPosition.BACK_2).ImagePath />
+                        <div class="absolute inset-x-0 bottom-0 bg-white opacity-80">
+                            <label>HP</label>
+                            <label class="font-semibold">@Enemies.GetAtPosition(FormationPosition.BACK_2).ActualHP/@Enemies.GetAtPosition(FormationPosition.BACK_2).BaseHP</label>
+                        </div>
                     }
                 </button>
-                <button @onclick="() => EnemyClicked(Enemies.GetAtPosition(FormationPosition.FRONT_0))" type="button" class="h-32 place-self-center">
+                <button @onclick="() => EnemyClicked(Enemies.GetAtPosition(FormationPosition.FRONT_0))" type="button" class="relative h-32 place-self-center">
                     @if (Enemies.GetAtPosition(FormationPosition.FRONT_0) is not null)
                     {
                         <img class="h-32 @EnemySelectable()" src=@Enemies.GetAtPosition(FormationPosition.FRONT_0).ImagePath />
+                        <div class="absolute inset-x-0 bottom-0 bg-white opacity-80">
+                            <label>HP</label>
+                            <label class="font-semibold">@Enemies.GetAtPosition(FormationPosition.FRONT_0).ActualHP/@Enemies.GetAtPosition(FormationPosition.FRONT_0).BaseHP</label>
+                        </div>
                     }
                 </button>
-                <button @onclick="() => EnemyClicked(Enemies.GetAtPosition(FormationPosition.FRONT_1))" type="button" class="h-32 place-self-center">
+                <button @onclick="() => EnemyClicked(Enemies.GetAtPosition(FormationPosition.FRONT_1))" type="button" class="relative h-32 place-self-center">
                     @if (Enemies.GetAtPosition(FormationPosition.FRONT_1) is not null)
                     {
                         <img class="h-32 @EnemySelectable()" src=@Enemies.GetAtPosition(FormationPosition.FRONT_1).ImagePath />
+                        <div class="absolute inset-x-0 bottom-0 bg-white opacity-80">
+                            <label>HP</label>
+                            <label class="font-semibold">@Enemies.GetAtPosition(FormationPosition.FRONT_1).ActualHP/@Enemies.GetAtPosition(FormationPosition.FRONT_1).BaseHP</label>
+                        </div>
                     }
                 </button>
-                <button @onclick="() => EnemyClicked(Enemies.GetAtPosition(FormationPosition.FRONT_2))" type="button" class="h-32 place-self-center">
+                <button @onclick="() => EnemyClicked(Enemies.GetAtPosition(FormationPosition.FRONT_2))" type="button" class="relative h-32 place-self-center">
                     @if (Enemies.GetAtPosition(FormationPosition.FRONT_2) is not null)
                     {
                         <img class="h-32 @EnemySelectable()" src=@Enemies.GetAtPosition(FormationPosition.FRONT_2).ImagePath />
+                        <div class="absolute inset-x-0 bottom-0 bg-white opacity-80">
+                            <label>HP</label>
+                            <label class="font-semibold">@Enemies.GetAtPosition(FormationPosition.FRONT_2).ActualHP/@Enemies.GetAtPosition(FormationPosition.FRONT_2).BaseHP</label>
+                        </div>
                     }
                 </button>
             </div>
@@ -192,7 +211,7 @@
         SkillMenuOpen = true;
 
     }
-    public void DefendClicked()
+    public async void DefendClicked()
     {
         // Add a defense buff to party member
         BattleActions.Add(new BattleAction()
@@ -208,7 +227,7 @@
             ActionInformation = $"{SelectedMember.Name} is defending"
         });
 
-        AdvanceTurn();
+        await AdvanceTurn();
     }
     public void ItemClicked()
     {
@@ -242,7 +261,7 @@
 
         await AdvanceTurn();
     }
-    public void SkillSelected(ISkill skill)
+    public async void SkillSelected(ISkill skill)
     {
         // TODO: Pick target for skill depending on skill type
 
@@ -256,7 +275,7 @@
             ActionInformation = $"{SelectedMember.Name} uses {skill.Name}"
         });
 
-        AdvanceTurn();
+        await AdvanceTurn();
     }
 
     private async Task BattleSequence()
@@ -277,6 +296,9 @@
             // TODO: Wait for advance action
             await Task.Delay(1500);
         }
+
+        // Clear all battle actions
+        BattleActions.Clear();
     }
 
     private string HighlightPartyMember(int idx)
