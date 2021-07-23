@@ -1,4 +1,6 @@
-﻿using EtrianOdysseyClone.Data.Maps;
+﻿using EtrianOdysseyClone.Data.Config;
+using EtrianOdysseyClone.Data.Maps;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,7 +25,7 @@ namespace EtrianOdysseyClone.Data
         public int Monies { get; set; }
         public Party Party { get; set; }
 
-        public GameSession()
+        public GameSession(IOptionsSnapshot<CharacterConfigSection> CharacterConfig)
         {
             Maps = new List<DungeonMap>();
             Maps.Add(new Floor1());

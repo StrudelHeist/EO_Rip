@@ -15,28 +15,33 @@
     <div class="left-0 relative flex justify-center">
         <PrimaryFloatingMenu MenuOptions="_jobSelectOptions"></PrimaryFloatingMenu>
     </div>
-    @if (_requestInput)
+    @if (_jobSelected)
     {
-        <div class="flex flex-col justify-evenly mr-3">
-            <input @bind-value="_nameInput" class="text-base h-10" @onclick="() => OnConfirm(_nameInput)" />
-            <button class="btn btn-blue bg-blue-300 rounded-lg px-20 py-2">Confirm</button>
+        <div class="left-0 relative flex justify-center">
+            <PrimaryFloatingMenu MenuOptions="_characterSelectOptions"></PrimaryFloatingMenu>
+            @if (_characterSelected)
+            {
+                <button class="btn bg-green-300 rounded-lg px-20 py-2 m-10 h-14">Confirm</button>
+            }
         </div>
     }
 </div>
 
 @code {
     private List<ButtonProperties> _jobSelectOptions;
-    private Job selectedJob;
+    private Job _selectedJob;
+    private bool _jobSelected;
+
 
     private List<ButtonProperties> _characterSelectOptions;
-    private CharacterConfig selectedCharacter;
+    private CharacterConfig _selectedCharacter;
+    private bool _characterSelected;
 
-    private bool _requestInput;
     private string _nameInput;
 
     protected override void OnInitialized()
     {
-        _requestInput = false;
+        _jobSelected = false;
 
         _jobSelectOptions = new List<ButtonProperties>();
         _characterSelectOptions = new List<ButtonProperties>();
@@ -60,26 +65,35 @@
 
     private void OnConfirm(string name)
     {
-        //new PartyMember();
+        new PartyMember();
         //SessionInfo.Party.AddPartyMember();
     }
 
     private void OnJobSelect(Job newJob)
     {
-        selectedJob = newJob;
-        _requestInput = true;
+        _selectedJob = newJob;
+        _jobSelected = true;
+
+        DisplayCharacterOptions(newJob);
+
         StateHasChanged();
     }
 
     private void OnCharacterSelect(CharacterConfig character)
     {
-        selectedCharacter = character;
+        _selectedCharacter = character;
+        _characterSelected = true;
+
+        StateHasChanged();
     }
     #endregion
 
     #region HelperFunctions
     private void DisplayCharacterOptions(Job job)
     {
+        _characterSelectOptions.Clear();
+        _characterSelected = false;
+
         foreach (var character in CharacterConfig.Value.Characters)
         {
             if (character.Job == Enum.GetName<Job>(job))
