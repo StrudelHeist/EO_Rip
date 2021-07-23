@@ -389,31 +389,35 @@
         if (_currentState != BattleState.SELECT_TARGET_SINGLE)
             return;
 
-        // TODO: Set target enemy for party member and continue
+        // Set target enemy for party member and continue
         BattleAction bAction = new BattleAction();
-        bAction.ActionSpeed = SelectedMember.ActualSpeed;
+        PartyMember caster = SelectedMember;
+        bAction.ActionSpeed = caster.ActualSpeed;
         if (_lastSelectedSkill != null)
         {
             var tempSkill = _lastSelectedSkill;
             bAction.ActualAction = () =>
             {
-                SelectedMember.ActualTP -= tempSkill.TpCost;
-                tempSkill.ExecuteSkill(SelectedMember, new List<ITarget>() { targetEnemy });
+                Console.WriteLine($"{caster.Name} is using {tempSkill.Name} which costs {tempSkill.TpCost} TP");
+                Console.WriteLine($"{caster.Name}'s ActualTP is {caster.ActualTP}");
+                caster.ActualTP = caster.ActualTP - tempSkill.TpCost;
+                Console.WriteLine($"Now {caster.Name}'s ActualTP is {caster.ActualTP}");
+                tempSkill.ExecuteSkill(caster, new List<ITarget>() { targetEnemy });
             };
-            bAction.ActionInformation = $"{SelectedMember.Name} uses {_lastSelectedSkill.Name} on {targetEnemy.Name}";
+            bAction.ActionInformation = $"{caster.Name} uses {tempSkill.Name} on {targetEnemy.Name}";
             _lastSelectedSkill = null;
         }
         else
         {
             bAction.ActualAction = () =>
             {
-                int damage = SelectedMember.ActualStrength - targetEnemy.ActualDefense;
+                int damage = caster.ActualStrength - targetEnemy.ActualDefense;
                 if (damage > 0)
                 {
                     targetEnemy.ActualHP -= damage;
                 }
             };
-            bAction.ActionInformation = $"{SelectedMember.Name} attacks {targetEnemy.Name}";
+            bAction.ActionInformation = $"{caster.Name} attacks {targetEnemy.Name}";
         }
         BattleActions.Add(bAction);
 
@@ -459,16 +463,18 @@
         // Set target party member for action and continue
         PartyMember caster = SelectedMember;
         PartyMember target = Party.GetAtPosition(position);
+        ISkill skill = _lastSelectedSkill;
         BattleActions.Add(new BattleAction()
         {
-            ActionInformation = $"{caster.Name} uses {_lastSelectedSkill.Name} on {target.Name}",
+            ActionInformation = $"{caster.Name} uses {skill.Name} on {target.Name}",
             ActualAction = () =>
             {
-                caster.ActualTP -= _lastSelectedSkill.TpCost;
-                _lastSelectedSkill.ExecuteSkill(caster, new List<ITarget>() { target });
+                caster.ActualTP -= skill.TpCost;
+                skill.ExecuteSkill(caster, new List<ITarget>() { target });
             },
             ActionSpeed = caster.ActualSpeed
         });
+        _lastSelectedSkill = null;
 
         await AdvanceTurn();
     }
@@ -498,10 +504,13 @@
 
     private string PartyMemberBackground(int idx)
     {
+        if (Party.AllMembers[idx] == null)
+            return "p-1 rounded";
+
         if (_currentState == BattleState.SELECT_MEMBER_SINGLE)
             return "p-1 rounded hover:bg-green-100";
 
-        if (Party.AllMembers[idx] != null && Party.AllMembers[idx] == SelectedMember)
+        if (Party.AllMembers[idx] == SelectedMember)
             return "p-1 rounded bg-yellow-300";
         else
             return "p-1 rounded";
@@ -516,10 +525,10 @@
     }
     private string EnemySelectable()
     {
-        if (ShowPortrait)
-            return "";
-        else
+        if (_currentState == BattleState.SELECT_TARGET_SINGLE)
             return "hover:bg-yellow-300 rounded";
+        else
+            return "";
     }
 
     private async Task AdvanceTurn()
@@ -553,17 +562,13 @@
             }
 
             await BattleSequence();
+        }
 
-            AdvancePartyPosition();
-            Text = "A horde of enemies has appeared";
-            StateHasChanged();
-        }
-        else
-        {
-            Text = "A horde of enemies has appeared";
-            _currentState = BattleState.MEMBER_SELECT_ACTION;
-            AdvancePartyPosition();
-        }
+        Text = "A horde of enemies has appeared";
+        _currentState = BattleState.MEMBER_SELECT_ACTION;
+        AdvancePartyPosition();
+
+        StateHasChanged();
     }
     private void AdvancePartyPosition()
     {
