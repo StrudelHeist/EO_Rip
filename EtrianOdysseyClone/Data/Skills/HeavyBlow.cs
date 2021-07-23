@@ -20,8 +20,6 @@ namespace EtrianOdysseyClone.Data.Skills
             // Should only impact one target
             ITarget target = targets.First();
 
-            caster.ActualTP -= TpCost;
-
             // Calculate damage to target
             target.ActualHP -= CalculateDamageToTarget(caster, target);
         }

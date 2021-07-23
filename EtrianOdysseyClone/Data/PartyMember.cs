@@ -1,12 +1,15 @@
 ﻿using EtrianOdysseyClone.Data.Items.Armor;
 using EtrianOdysseyClone.Data.Items.Weapons;
 using EtrianOdysseyClone.Data.Jobs;
+using System;
 using System.Collections.Generic;
 
 namespace EtrianOdysseyClone.Data
 {
     public class PartyMember : ITarget, ICaster
     {
+        private int _actualTP;
+
         public string Name { get; set; }
 
         public string ImagePath { get; set; }
@@ -29,7 +32,18 @@ namespace EtrianOdysseyClone.Data
         public int BaseLuck { get; set; }           // Use for crit calculation
 
         public int ActualHP { get; set; }
-        public int ActualTP { get; set; }
+        public int ActualTP
+        {
+            get
+            {
+                return _actualTP;
+            }
+            set
+            {
+                Console.WriteLine($"Someone is setting {Name}'s TP to {value}");
+                _actualTP = value;
+            }
+        }
 
         public int ActualStrength
         {

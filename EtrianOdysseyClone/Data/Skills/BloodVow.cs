@@ -16,8 +16,6 @@ namespace EtrianOdysseyClone.Data.Skills
 
         public void ExecuteSkill(ICaster caster, List<ITarget> targets)
         {
-            caster.ActualTP -= TpCost;
-
             caster.ActualHP -= SkillLevel + 4;
 
             caster.Buffs.Add(new Buff()

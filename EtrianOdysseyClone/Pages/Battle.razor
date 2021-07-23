@@ -400,7 +400,7 @@
             {
                 Console.WriteLine($"{caster.Name} is using {tempSkill.Name} which costs {tempSkill.TpCost} TP");
                 Console.WriteLine($"{caster.Name}'s ActualTP is {caster.ActualTP}");
-                caster.ActualTP = caster.ActualTP - tempSkill.TpCost;
+                caster.ActualTP -= tempSkill.TpCost;
                 Console.WriteLine($"Now {caster.Name}'s ActualTP is {caster.ActualTP}");
                 tempSkill.ExecuteSkill(caster, new List<ITarget>() { targetEnemy });
             };
@@ -433,7 +433,10 @@
             {
                 ActionInformation = $"{member.Name} uses {skill.Name}",
                 ActualAction = () => {
+                    Console.WriteLine($"{member.Name} is using {skill.Name} which costs {skill.TpCost} TP");
+                    Console.WriteLine($"{member.Name}'s ActualTP is {member.ActualTP}");
                     member.ActualTP -= skill.TpCost;
+                    Console.WriteLine($"Now {member.Name}'s ActualTP is {member.ActualTP}");
                     skill.ExecuteSkill(member, null);
                 },
                 ActionSpeed = SelectedMember.ActualSpeed
@@ -469,7 +472,10 @@
             ActionInformation = $"{caster.Name} uses {skill.Name} on {target.Name}",
             ActualAction = () =>
             {
+                Console.WriteLine($"{caster.Name} is using {skill.Name} which costs {skill.TpCost} TP");
+                Console.WriteLine($"{caster.Name}'s ActualTP is {caster.ActualTP}");
                 caster.ActualTP -= skill.TpCost;
+                Console.WriteLine($"Now {caster.Name}'s ActualTP is {caster.ActualTP}");
                 skill.ExecuteSkill(caster, new List<ITarget>() { target });
             },
             ActionSpeed = caster.ActualSpeed

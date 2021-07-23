@@ -25,8 +25,6 @@ namespace EtrianOdysseyClone.Data.Skills
 
         public void ExecuteSkill(ICaster caster, List<ITarget> targets)
         {
-            caster.ActualTP -= TpCost;
-
             foreach (ITarget target in targets)
             {
                 target.ActualHP -= CalculateDamageToTarget(caster, target);
