@@ -9,6 +9,8 @@ namespace EtrianOdysseyClone.Data.Skills
 
         public int Duration { get; private set; }
 
+        public TargetType TargetType { get; private set; }
+
         public int SkillLevel { get; private set; }
 
         public int TpCost { get; private set; }
@@ -30,6 +32,7 @@ namespace EtrianOdysseyClone.Data.Skills
             Duration = 0;
             TpCost = 3;
             SkillLevel = 1;
+            TargetType = TargetType.ENEMY;
         }
 
         private int CalculateDamageToTarget(ICaster caster, ITarget target)

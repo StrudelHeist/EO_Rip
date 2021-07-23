@@ -22,6 +22,15 @@ namespace EtrianOdysseyClone.Data.Jobs
 
             StartingSpeed = 3;
             StartingLuck = 3;
+
+            InitializeSkills();
+        }
+
+        private void InitializeSkills()
+        {
+            Skills = new List<ISkill>();
+
+            Skills.Add(new TeamUp());
         }
     }
 }

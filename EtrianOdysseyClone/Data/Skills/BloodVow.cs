@@ -8,6 +8,8 @@ namespace EtrianOdysseyClone.Data.Skills
 
         public int Duration { get; private set; }
 
+        public TargetType TargetType { get; private set; }
+
         public int TpCost { get; private set; }
 
         public int SkillLevel { get; private set; }
@@ -31,6 +33,7 @@ namespace EtrianOdysseyClone.Data.Skills
             Duration = 3;
             TpCost = 3;
             SkillLevel = 1;
+            TargetType = TargetType.SELF;
         }
     }
 }

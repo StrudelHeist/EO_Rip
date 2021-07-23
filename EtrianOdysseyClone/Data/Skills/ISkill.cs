@@ -6,6 +6,8 @@ namespace EtrianOdysseyClone.Data.Skills
     {
         public string Name { get; }
 
+        public TargetType TargetType { get; }
+
         // What happens (increase/decrease stats)
         public void ExecuteSkill(ICaster caster, List<ITarget> targets);
 

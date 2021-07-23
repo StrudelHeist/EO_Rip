@@ -12,12 +12,15 @@ namespace EtrianOdysseyClone.Data.Skills
 
         public int TpCost { get; private set; }
 
+        public TargetType TargetType { get; private set; }
+
         public WideSwing()
         {
             Name = nameof(WideSwing);
             Duration = 0;
             TpCost = 5;
             SkillLevel = 1;
+            TargetType = TargetType.ENEMY_LINE;
         }
 
         public void ExecuteSkill(ICaster caster, List<ITarget> targets)
