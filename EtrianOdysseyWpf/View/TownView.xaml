@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="EtrianOdysseyWpf.View.TownView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EtrianOdysseyWpf.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="Button">
+                <Setter Property="Background" Value="LightGreen" />
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="FontWeight" Value="DemiBold" />
+            </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Foreground="LightGreen" Background="Black">MAIN</Button>
+            <Border Grid.Column="1" Background="DarkBlue">
+                <Label Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="LightBlue" FontWeight="Bold" FontSize="13">19:00</Label>
+            </Border>
+            <Border Grid.Column="2" Background="Green">
+                <Label VerticalAlignment="Center" Foreground="LightGreen" FontSize="15">Rest and save here.</Label>
+            </Border>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <Button>Saehrimnir Inn</Button>
+                <Button>Berund Atelier</Button>
+                <Button>Dancing Peacock</Button>
+                <Button>Explorers Guild</Button>
+                <Button>Mark Grand Court</Button>
+                <Button>City Gates</Button>
+            </StackPanel>
+            <Image Grid.Column="1" Stretch="Fill" Source="pack://application:,,,/Images/Backgrounds/TownBackground.png"></Image>
+        </Grid>
+    </Grid>
+</UserControl>
