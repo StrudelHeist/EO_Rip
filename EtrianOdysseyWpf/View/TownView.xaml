@@ -42,7 +42,7 @@
                 <Button>Saehrimnir Inn</Button>
                 <Button>Berund Atelier</Button>
                 <Button>Dancing Peacock</Button>
-                <Button>Explorers Guild</Button>
+                <Button Click="GuildClicked">Explorers Guild</Button>
                 <Button>Mark Grand Court</Button>
                 <Button>City Gates</Button>
             </StackPanel>

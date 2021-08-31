@@ -40,11 +40,11 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0">
-                <Button>Register</Button>
+                <Button Click="RegisterClicked">Register</Button>
                 <Button>Organize</Button>
                 <Button>Formation</Button>
                 <Button>Talk</Button>
-                <Button>Leave</Button>
+                <Button Click="LeaveClicked">Leave</Button>
             </StackPanel>
             <Image Grid.Column="1" Source="pack://application:,,,/Images/Backgrounds/GuildBackground.png" Stretch="Fill" />
             <Image Grid.Column="1" Source="pack://application:,,,/Images/NPCs/Guildmaster.png" HorizontalAlignment="Right" VerticalAlignment="Bottom" />

@@ -20,9 +20,21 @@ namespace EtrianOdysseyWpf.View
     /// </summary>
     public partial class ExplorersGuild : UserControl
     {
+        public event EventHandler<AvailableViews> NewViewRequested;
+
         public ExplorersGuild()
         {
             InitializeComponent();
+        }
+
+        private void RegisterClicked(object sender, RoutedEventArgs e)
+        {
+            NewViewRequested?.Invoke(this, AvailableViews.HERO_REGISTRATION);
+        }
+
+        private void LeaveClicked(object sender, RoutedEventArgs e)
+        {
+            NewViewRequested?.Invoke(this, AvailableViews.TOWN_SQUARE);
         }
     }
 }

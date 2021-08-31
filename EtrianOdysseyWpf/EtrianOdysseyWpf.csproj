@@ -6,4 +6,42 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Images\Backgrounds\GuildBackground.png" />
+    <None Remove="Images\Backgrounds\TownBackground.png" />
+    <None Remove="Images\BattlePoses\BravenBattlePose.png" />
+    <None Remove="Images\BattlePoses\BrianBattlePose.png" />
+    <None Remove="Images\BattlePoses\GabeBattlePose.png" />
+    <None Remove="Images\BattlePoses\JacobBattlePose.png" />
+    <None Remove="Images\BattlePoses\JustinBattlePose.png" />
+    <None Remove="Images\NPCs\Guildmaster.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Images\Backgrounds\GuildBackground.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Backgrounds\TownBackground.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BattlePoses\BravenBattlePose.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BattlePoses\BrianBattlePose.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BattlePoses\GabeBattlePose.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BattlePoses\JacobBattlePose.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BattlePoses\JustinBattlePose.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\NPCs\Guildmaster.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
