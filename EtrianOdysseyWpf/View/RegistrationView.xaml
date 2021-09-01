@@ -13,14 +13,60 @@
                 <Setter Property="Height" Value="200" />
             </Style>
         </Grid.Resources>
-        <ScrollViewer HorizontalScrollBarVisibility="Visible">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="3*"/>
+            <RowDefinition />
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label HorizontalAlignment="Center" FontSize="22" FontWeight="Bold" Content="{Binding ClassTitle}" />
+            <Label HorizontalAlignment="Center" FontSize="18" FontWeight="SemiBold" Content="{Binding ClassSubtitle}" />
+            <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding ClassDescription}" />
+        </StackPanel>
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Visible">
             <StackPanel Orientation="Horizontal">
-                <Image Source="pack://application:,,,/Images/BattlePoses/BravenBattlePose.png" />
-                <Image Source="pack://application:,,,/Images/BattlePoses/BrianBattlePose.png" />
-                <Image Source="pack://application:,,,/Images/BattlePoses/JacobBattlePose.png" />
-                <Image Source="pack://application:,,,/Images/BattlePoses/GabeBattlePose.png" />
-                <Image Source="pack://application:,,,/Images/BattlePoses/JustinBattlePose.png" />
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <Image Source="pack://application:,,,/Images/BattlePoses/BravenBattlePose.png" MouseEnter="OnMouseEnterBraven"/>
+                    <Button>Braven</Button>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <Image Source="pack://application:,,,/Images/BattlePoses/BrianBattlePose.png" MouseEnter="OnMouseEnterBrian"/>
+                    <Button>Brian</Button>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <Image Source="pack://application:,,,/Images/BattlePoses/JacobBattlePose.png" MouseEnter="OnMouseEnterJacob"/>
+                    <Button>Jacob</Button>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <Image Source="pack://application:,,,/Images/BattlePoses/GabeBattlePose.png" MouseEnter="OnMouseEnterGabe" />
+                    <Button>Gabe</Button>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <Image Source="pack://application:,,,/Images/BattlePoses/JustinBattlePose.png" MouseEnter="OnMouseEnterJustin"/>
+                    <Button>Justin</Button>
+                </StackPanel>
             </StackPanel>
         </ScrollViewer>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button>Slot 1</Button>
+            <Button Grid.Row="0" Grid.Column="1">Slot 2</Button>
+            <Button Grid.Row="0" Grid.Column="2">Slot 3</Button>
+            <Button Grid.Row="1" Grid.Column="0">Slot 4</Button>
+            <Button Grid.Row="1" Grid.Column="1">Slot 5</Button>
+            <Button Grid.Row="1" Grid.Column="2">Slot 6</Button>
+        </Grid>
+        <DockPanel Grid.Row="3">
+            <Button HorizontalAlignment="Right">Complete</Button>
+        </DockPanel>
     </Grid>
 </UserControl>
