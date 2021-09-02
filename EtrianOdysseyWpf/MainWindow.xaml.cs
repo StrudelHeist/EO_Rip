@@ -46,9 +46,9 @@ namespace EtrianOdysseyWpf
             InitializeComponent();
         }
 
-        private void OnNewViewRequested(object sender, AvailableViews nextView)
+        private void OnNewViewRequested(object sender, TransitionMessage message)
         {
-            switch (nextView)
+            switch (message.RequestedView)
             {
                 case AvailableViews.GUILD_HOUSE:
                     CurrentContent = _explorersGuildView;
@@ -60,6 +60,8 @@ namespace EtrianOdysseyWpf
                     CurrentContent = _townView;
                     break;
             }
+
+            (CurrentContent as IGameView).Setup(message.SessionInformation);
         }
     }
 }

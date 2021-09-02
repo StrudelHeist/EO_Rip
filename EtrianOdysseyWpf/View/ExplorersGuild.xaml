@@ -49,5 +49,16 @@
             <Image Grid.Column="1" Source="pack://application:,,,/Images/Backgrounds/GuildBackground.png" Stretch="Fill" />
             <Image Grid.Column="1" Source="pack://application:,,,/Images/NPCs/Guildmaster.png" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
         </Grid>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+        </Grid>
     </Grid>
 </UserControl>

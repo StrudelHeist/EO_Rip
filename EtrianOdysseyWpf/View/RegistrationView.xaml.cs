@@ -1,12 +1,11 @@
 ﻿using EtrianOdysseyShared;
 using EtrianOdysseyShared.Characters;
 using EtrianOdysseyWpf.View.Secondary;
-using System.Collections.Generic;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 
 namespace EtrianOdysseyWpf.View
@@ -15,7 +14,7 @@ namespace EtrianOdysseyWpf.View
     /// Interaction logic for RegistrationView.xaml
     /// --> This view is for adding characters to our party
     /// </summary>
-    public partial class RegistrationView : UserControl, INotifyPropertyChanged
+    public partial class RegistrationView : UserControl, IGameView
     {
         private enum Mode
         {
@@ -25,6 +24,8 @@ namespace EtrianOdysseyWpf.View
 
         private Mode _operationMode;
         private PartyMember _lastSelectedPartyMember;
+        private Party _constructedParty;
+        private GameSession _gameSession;
         private ObservableCollection<RegistrationProfileView> _characterViews;
 
         private string _classTitle;
@@ -38,9 +39,8 @@ namespace EtrianOdysseyWpf.View
         private string _slot5Name;
         private string _slot6Name;
 
-        private Brush _slotButtonColor;
-
         public event PropertyChangedEventHandler PropertyChanged;
+        public event EventHandler<TransitionMessage> NewViewRequested;
 
         private Mode OperationMode
         {
@@ -180,6 +180,8 @@ namespace EtrianOdysseyWpf.View
 
         public RegistrationView()
         {
+            _constructedParty = new Party();
+
             Slot1Name = "--EMPTY--";
             Slot2Name = "--EMPTY--";
             Slot3Name = "--EMPTY--";
@@ -206,7 +208,12 @@ namespace EtrianOdysseyWpf.View
             InitializeComponent();
         }
 
-        private void ProfileView_CharacterMouseLeave(object sender, EtrianOdysseyShared.PartyMember e)
+        public void Setup(GameSession session)
+        {
+            _gameSession = session;
+        }
+
+        private void ProfileView_CharacterMouseLeave(object sender, PartyMember e)
         {
             if (OperationMode == Mode.CHOOSE_SLOT)
                 return;
@@ -214,7 +221,7 @@ namespace EtrianOdysseyWpf.View
             DefaultAllBorders();
             ClearHeadings();
         }
-        private void ProfileView_CharacterMouseEnter(object sender, EtrianOdysseyShared.PartyMember e)
+        private void ProfileView_CharacterMouseEnter(object sender, PartyMember e)
         {
             if (OperationMode == Mode.CHOOSE_SLOT)
                 return;
@@ -227,7 +234,7 @@ namespace EtrianOdysseyWpf.View
             ClassSubtitle = e.Job.JobSubtitle;
             ClassDescription = e.Job.JobDescription;
         }
-        private void ProfileView_CharacterClicked(object sender, EtrianOdysseyShared.PartyMember e)
+        private void ProfileView_CharacterClicked(object sender, PartyMember e)
         {
             ClearHeadings();
             ClassSubtitle = $"Please choose a party position for {e.Name}";
@@ -249,7 +256,40 @@ namespace EtrianOdysseyWpf.View
 
         private void SlotClicked(object sender, RoutedEventArgs e)
         {
-            // TODO: Put last selected party member here
+            Button button = sender as Button;
+            switch (int.Parse(button.Tag.ToString()))
+            {
+                case 1:
+                    Slot1Name = _lastSelectedPartyMember.Name;
+                    break;
+                case 2:
+                    Slot2Name = _lastSelectedPartyMember.Name;
+                    break;
+                case 3:
+                    Slot3Name = _lastSelectedPartyMember.Name;
+                    break;
+                case 4:
+                    Slot4Name = _lastSelectedPartyMember.Name;
+                    break;
+                case 5:
+                    Slot5Name = _lastSelectedPartyMember.Name;
+                    break;
+                case 6:
+                    Slot6Name = _lastSelectedPartyMember.Name;
+                    break;
+            }
+            _constructedParty.AddPartyMember(_lastSelectedPartyMember, int.Parse(button.Tag.ToString()));
+
+            OperationMode = Mode.SELECT_CHARACTER;
+        }
+        private void CompleteClicked(object sender, RoutedEventArgs e)
+        {
+            _gameSession.Party = _constructedParty;
+            NewViewRequested?.Invoke(this, new TransitionMessage
+            {
+                RequestedView = AvailableViews.GUILD_HOUSE,
+                SessionInformation = _gameSession
+            });
         }
     }
 }
