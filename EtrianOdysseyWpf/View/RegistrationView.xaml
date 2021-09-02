@@ -24,29 +24,14 @@
             <Label HorizontalAlignment="Center" FontSize="18" FontWeight="SemiBold" Content="{Binding ClassSubtitle}" />
             <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding ClassDescription}" />
         </StackPanel>
-        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Visible">
-            <StackPanel Orientation="Horizontal">
-                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                    <Image Source="pack://application:,,,/Images/BattlePoses/BravenBattlePose.png" MouseEnter="OnMouseEnterBraven"/>
-                    <Button>Braven</Button>
-                </StackPanel>
-                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                    <Image Source="pack://application:,,,/Images/BattlePoses/BrianBattlePose.png" MouseEnter="OnMouseEnterBrian"/>
-                    <Button>Brian</Button>
-                </StackPanel>
-                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                    <Image Source="pack://application:,,,/Images/BattlePoses/JacobBattlePose.png" MouseEnter="OnMouseEnterJacob"/>
-                    <Button>Jacob</Button>
-                </StackPanel>
-                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                    <Image Source="pack://application:,,,/Images/BattlePoses/GabeBattlePose.png" MouseEnter="OnMouseEnterGabe" />
-                    <Button>Gabe</Button>
-                </StackPanel>
-                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                    <Image Source="pack://application:,,,/Images/BattlePoses/JustinBattlePose.png" MouseEnter="OnMouseEnterJustin"/>
-                    <Button>Justin</Button>
-                </StackPanel>
-            </StackPanel>
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Hidden">
+            <ItemsControl ItemsSource="{Binding CharacterViews}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
         </ScrollViewer>
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
@@ -58,12 +43,12 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button>Slot 1</Button>
-            <Button Grid.Row="0" Grid.Column="1">Slot 2</Button>
-            <Button Grid.Row="0" Grid.Column="2">Slot 3</Button>
-            <Button Grid.Row="1" Grid.Column="0">Slot 4</Button>
-            <Button Grid.Row="1" Grid.Column="1">Slot 5</Button>
-            <Button Grid.Row="1" Grid.Column="2">Slot 6</Button>
+            <Button Grid.Row="0" Grid.Column="0" Content="{Binding Slot1Name}" Background="{Binding SlotButtonColor}" Click="SlotClicked" />
+            <Button Grid.Row="0" Grid.Column="1" Content="{Binding Slot2Name}" Background="{Binding SlotButtonColor}" Click="SlotClicked" />
+            <Button Grid.Row="0" Grid.Column="2" Content="{Binding Slot3Name}" Background="{Binding SlotButtonColor}" Click="SlotClicked" />
+            <Button Grid.Row="1" Grid.Column="0" Content="{Binding Slot4Name}" Background="{Binding SlotButtonColor}" Click="SlotClicked" />
+            <Button Grid.Row="1" Grid.Column="1" Content="{Binding Slot5Name}" Background="{Binding SlotButtonColor}" Click="SlotClicked" />
+            <Button Grid.Row="1" Grid.Column="2" Content="{Binding Slot6Name}" Background="{Binding SlotButtonColor}" Click="SlotClicked" />
         </Grid>
         <DockPanel Grid.Row="3">
             <Button HorizontalAlignment="Right">Complete</Button>
