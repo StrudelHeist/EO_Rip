@@ -31,7 +31,7 @@
         <Border Grid.Row="1" Background="Black">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition />
+                    <RowDefinition Height="2*"/>
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
