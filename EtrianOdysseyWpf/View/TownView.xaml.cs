@@ -35,5 +35,13 @@ namespace EtrianOdysseyWpf.View
             });
         }
 
+        private void CityGatesClicked(object sender, RoutedEventArgs e)
+        {
+            NewViewRequested?.Invoke(this, new TransitionMessage
+            {
+                SessionInformation = _session,
+                RequestedView = AvailableViews.CITY_GATE
+            });
+        }
     }
 }

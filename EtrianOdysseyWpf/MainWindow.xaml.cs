@@ -15,6 +15,7 @@ namespace EtrianOdysseyWpf
         private TownView _townView;
         private RegistrationView _registrationView;
         private ExplorersGuild _explorersGuildView;
+        private CityGatesView _cityGatesView;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -36,10 +37,12 @@ namespace EtrianOdysseyWpf
             _townView = new TownView();
             _registrationView = new RegistrationView();
             _explorersGuildView = new ExplorersGuild();
+            _cityGatesView = new CityGatesView();
 
             _townView.NewViewRequested += OnNewViewRequested;
             _explorersGuildView.NewViewRequested += OnNewViewRequested;
             _registrationView.NewViewRequested += OnNewViewRequested;
+            _cityGatesView.NewViewRequested += OnNewViewRequested;
 
             _townView.Setup(new EtrianOdysseyShared.GameSession());
             CurrentContent = _townView;
@@ -60,6 +63,9 @@ namespace EtrianOdysseyWpf
                     break;
                 case AvailableViews.TOWN_SQUARE:
                     CurrentContent = _townView;
+                    break;
+                case AvailableViews.CITY_GATE:
+                    CurrentContent = _cityGatesView;
                     break;
             }
 

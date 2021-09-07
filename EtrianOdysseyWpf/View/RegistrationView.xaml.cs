@@ -256,6 +256,9 @@ namespace EtrianOdysseyWpf.View
 
         private void SlotClicked(object sender, RoutedEventArgs e)
         {
+            if (OperationMode != Mode.CHOOSE_SLOT)
+                return;
+
             Button button = sender as Button;
             switch (int.Parse(button.Tag.ToString()))
             {
