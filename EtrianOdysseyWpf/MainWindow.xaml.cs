@@ -39,7 +39,9 @@ namespace EtrianOdysseyWpf
 
             _townView.NewViewRequested += OnNewViewRequested;
             _explorersGuildView.NewViewRequested += OnNewViewRequested;
+            _registrationView.NewViewRequested += OnNewViewRequested;
 
+            _townView.Setup(new EtrianOdysseyShared.GameSession());
             CurrentContent = _townView;
 
             DataContext = this;

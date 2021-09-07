@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EtrianOdysseyWpf.View.Secondary"
              mc:Ignorable="d" 
-             d:DesignHeight="150" d:DesignWidth="450">
+             d:DesignHeight="100" d:DesignWidth="450">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -20,12 +20,12 @@
                 <Grid Grid.Column="0">
                     <Grid.RowDefinitions>
                         <RowDefinition />
-                        <RowDefinition Height="2*" />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
-                    <Label HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold">Lv</Label>
-                    <Label Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="LightGreen" FontWeight="Bold">12</Label>
+                    <Label HorizontalAlignment="Left" VerticalAlignment="Top">Lv</Label>
+                    <Label Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="LightGreen" FontWeight="Bold" Content="{Binding Level}" />
                 </Grid>
-                <Label Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="LightGreen" FontSize="15" FontWeight="Bold">Braven</Label>
+                <Label Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="LightGreen" FontSize="15" FontWeight="Bold" Content="{Binding CharacterName}" />
             </Grid>
         </Border>
         <Border Grid.Row="1" Background="Black">
@@ -39,11 +39,11 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <Label HorizontalAlignment="Left" VerticalAlignment="Bottom" Foreground="Green">HP</Label>
-                <Label HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="LightGreen" FontWeight="Bold">109</Label>
+                <Label HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="LightGreen" FontWeight="Bold" Content="{Binding HealthPoints}" />
                 <Label Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Foreground="Green">TP</Label>
-                <Label Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="LightGreen" FontWeight="Bold">47</Label>
-                <ProgressBar Grid.Row="1" Maximum="100" Value="100" Height="8" />
-                <ProgressBar Grid.Row="1" Grid.Column="1" Maximum="100" Value="100" Height="8" Foreground="CadetBlue" />
+                <Label Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="LightGreen" FontWeight="Bold" Content="{Binding TP}" />
+                <ProgressBar Grid.Row="1" Maximum="{Binding HPBarMax}" Value="{Binding CurrentHP, Mode=OneWay}" Height="8" />
+                <ProgressBar Grid.Row="1" Grid.Column="1" Maximum="{Binding TPBarMax}" Value="{Binding CurrentTP, Mode=OneWay}" Height="8" Foreground="CadetBlue" />
             </Grid>
         </Border>
     </Grid>

@@ -59,6 +59,12 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
+            <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding Slot1View}" />
+            <ContentControl Grid.Row="0" Grid.Column="1" Content="{Binding Slot2View}" />
+            <ContentControl Grid.Row="0" Grid.Column="2" Content="{Binding Slot3View}" />
+            <ContentControl Grid.Row="1" Grid.Column="0" Content="{Binding Slot4View}" />
+            <ContentControl Grid.Row="1" Grid.Column="1" Content="{Binding Slot5View}" />
+            <ContentControl Grid.Row="1" Grid.Column="2" Content="{Binding Slot6View}" />
         </Grid>
     </Grid>
 </UserControl>

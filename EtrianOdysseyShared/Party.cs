@@ -23,5 +23,16 @@
 
             _partyMembers[slot - 1] = member;
         }
+        /// <summary>
+        /// Get party member
+        /// </summary>
+        /// <param name="slot">Slot 1-6</param>
+        /// <returns></returns>
+        public PartyMember GetPartyMember(int slot)
+        {
+            if (slot > MAX_PARTY_SLOTS) return null;
+
+            return _partyMembers[slot - 1];
+        }
     }
 }
