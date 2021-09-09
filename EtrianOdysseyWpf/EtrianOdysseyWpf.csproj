@@ -10,6 +10,7 @@
     <None Remove="Images\Backgrounds\CityGateBackground.png" />
     <None Remove="Images\Backgrounds\GuildBackground.png" />
     <None Remove="Images\Backgrounds\TownBackground.png" />
+    <None Remove="Images\Backgrounds\WoodlandsBackground.png" />
     <None Remove="Images\BattlePoses\BravenBattlePose.png" />
     <None Remove="Images\BattlePoses\BrianBattlePose.png" />
     <None Remove="Images\BattlePoses\GabeBattlePose.png" />
@@ -26,6 +27,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\Backgrounds\TownBackground.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Backgrounds\WoodlandsBackground.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\BattlePoses\BravenBattlePose.png">
