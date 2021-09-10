@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:MapBuilder"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Width="50" Height="50">
-        <Border Background="Green" Opacity=".5" BorderThickness="1" BorderBrush="Gray" ></Border>
+    <Grid>
+        <Image Stretch="Fill" Source="{Binding ImageSource}" />
+        <Border MouseDown="Border_MouseDown" Background="{Binding CellBackground}" Opacity="{Binding CellTransparency}" BorderThickness=".5" BorderBrush="Gray" ></Border>
     </Grid>
 </UserControl>

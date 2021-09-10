@@ -16,10 +16,18 @@
                 <ColumnDefinition />
                 <ColumnDefinition Width="7*"/>
             </Grid.ColumnDefinitions>
-            <ItemsControl ItemsSource="{Binding MapCells}">
+            <StackPanel>
+                <Button Background="{Binding FloorButtonBack}" Click="FloorButtonClicked">Floor</Button>
+                <Button Background="{Binding WallButtonBack}" Click="WallButtonClicked">Wall</Button>
+                <Button>Door</Button>
+                <Button>Shortcut</Button>
+                <Button Background="{Binding StairUpButtonBack}" Click="StairUpButtonClicked">Stair Up</Button>
+                <Button Background="{Binding StairDownButtonBack}" Click="StairDownButtonClicked">Stair Down</Button>
+            </StackPanel>
+            <ItemsControl Grid.Column="1" ItemsSource="{Binding MapCells}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel />
+                        <UniformGrid Rows="30" Columns="30" Margin="1 1 1 1" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
