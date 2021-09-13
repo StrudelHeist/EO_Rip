@@ -19,10 +19,11 @@
             <StackPanel>
                 <Button Background="{Binding FloorButtonBack}" Click="FloorButtonClicked">Floor</Button>
                 <Button Background="{Binding WallButtonBack}" Click="WallButtonClicked">Wall</Button>
-                <Button>Door</Button>
-                <Button>Shortcut</Button>
+                <Button Background="{Binding DoorButtonBack}" Click="DoorButtonClicked">Door</Button>
+                <Button Background="{Binding ShortcutButtonBack}" Click="ShortcutButtonClicked">Shortcut</Button>
                 <Button Background="{Binding StairUpButtonBack}" Click="StairUpButtonClicked">Stair Up</Button>
                 <Button Background="{Binding StairDownButtonBack}" Click="StairDownButtonClicked">Stair Down</Button>
+                <Button Background="{Binding EraseButtonBack}" Click="EraseButtonClicked">Erase</Button>
             </StackPanel>
             <ItemsControl Grid.Column="1" ItemsSource="{Binding MapCells}">
                 <ItemsControl.ItemsPanel>
@@ -31,6 +32,16 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="2" HorizontalAlignment="Right" Click="SaveButtonClick">Save Map</Button>
+            <Button Grid.Column="0" HorizontalAlignment="Left" Click="ClearButtonClick">Clear Map</Button>
+            <TextBox Grid.Column="1" Text="{Binding SaveFileName}" />
         </Grid>
     </Grid>
 </Window>

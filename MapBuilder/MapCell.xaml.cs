@@ -48,6 +48,10 @@ namespace MapBuilder
                         return "pack://application:,,,/StairsUp.png";
                     case MapCellType.STAIR_DOWN:
                         return "pack://application:,,,/StairsDown.png";
+                    case MapCellType.DOOR:
+                        return "pack://application:,,,/Door.png";
+                    case MapCellType.SHORTCUT:
+                        return "pack://application:,,,/Shortcut.png";
                     default:
                         return string.Empty;
                 }
