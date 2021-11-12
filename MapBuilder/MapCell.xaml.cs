@@ -106,5 +106,11 @@ namespace MapBuilder
         {
             CellClicked?.Invoke(this, EventArgs.Empty);
         }
+
+        private void Border_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+                CellClicked?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

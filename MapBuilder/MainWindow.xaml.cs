@@ -197,6 +197,24 @@ namespace MapBuilder
             }
 
         }
+        private void LoadButtonClick(object sender, RoutedEventArgs e)
+        {
+            bool fileExists = File.Exists(SaveFileName);
+            if (!fileExists)
+            {
+                MessageBox.Show($"{SaveFileName} doesn't exist!");
+                return;
+            }
+            var fileString = File.ReadAllText(SaveFileName);
+            fileString = fileString.Replace("\r\n", "");
+            for(int i = 0; i < fileString.Length; i++)
+            {
+                char currentChar = fileString[i];
+                _mapCells[i].SetCell(GetMapCellType(currentChar));
+            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MapCells)));
+
+        }
         private void ClearButtonClick(object sender, RoutedEventArgs e)
         {
             foreach (MapCell cell in MapCells)
@@ -219,6 +237,26 @@ namespace MapBuilder
                     return ">";
                 default:
                     return "X";
+            }
+        }
+        private MapCellType GetMapCellType(char type)
+        {
+            switch (type)
+            {
+                case 'O':
+                    return MapCellType.FLOOR;
+                case 'D':
+                    return MapCellType.DOOR;
+                case 'S':
+                    return MapCellType.SHORTCUT;
+                case '<':
+                    return MapCellType.STAIR_DOWN;
+                case '>':
+                    return MapCellType.STAIR_UP;
+                case 'X':
+                    return MapCellType.WALL;
+                default:
+                    return MapCellType.DEFAULT;
             }
         }
     }
