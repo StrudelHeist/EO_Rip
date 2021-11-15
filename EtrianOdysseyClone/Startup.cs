@@ -27,7 +27,7 @@ namespace EtrianOdysseyClone
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddScoped<GameSession>();
+            services.AddSingleton<GameSession>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
