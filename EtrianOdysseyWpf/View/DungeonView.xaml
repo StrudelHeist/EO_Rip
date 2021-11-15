@@ -12,12 +12,18 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Image Source="pack://application:,,,/Images/Backgrounds/WoodlandsBackground.png" Stretch="Fill" Opacity=".5"/>
-        <ItemsControl ItemsSource="{Binding MapCells}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <UniformGrid Rows="30" Columns="30" Margin="1 1 1 1" />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        </ItemsControl>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+            <ItemsControl Grid.Column="1" ItemsSource="{Binding ViewPort}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Rows="30" Columns="30" Margin="1 1 1 1" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </Grid>
     </Grid>
 </UserControl>

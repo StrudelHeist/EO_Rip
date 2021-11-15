@@ -16,6 +16,7 @@ namespace EtrianOdysseyWpf
         private RegistrationView _registrationView;
         private ExplorersGuild _explorersGuildView;
         private CityGatesView _cityGatesView;
+        private DungeonView _dungeonView;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -38,6 +39,7 @@ namespace EtrianOdysseyWpf
             _registrationView = new RegistrationView();
             _explorersGuildView = new ExplorersGuild();
             _cityGatesView = new CityGatesView();
+            _dungeonView = new DungeonView();
 
             _townView.NewViewRequested += OnNewViewRequested;
             _explorersGuildView.NewViewRequested += OnNewViewRequested;
@@ -66,6 +68,9 @@ namespace EtrianOdysseyWpf
                     break;
                 case AvailableViews.CITY_GATE:
                     CurrentContent = _cityGatesView;
+                    break;
+                case AvailableViews.DUNGEON:
+                    CurrentContent = _dungeonView;
                     break;
             }
 

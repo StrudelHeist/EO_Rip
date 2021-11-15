@@ -5,6 +5,7 @@
         GUILD_HOUSE,
         TOWN_SQUARE,
         HERO_REGISTRATION,
-        CITY_GATE
+        CITY_GATE,
+        DUNGEON
     }
 }

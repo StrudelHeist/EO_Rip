@@ -116,7 +116,11 @@ namespace EtrianOdysseyWpf.View
 
         public void EnterLabyrinthClicked(object sender, RoutedEventArgs e)
         {
-
+            NewViewRequested?.Invoke(this, new TransitionMessage
+            {
+                RequestedView = AvailableViews.DUNGEON,
+                SessionInformation = _session
+            });
         }
         private void ReturnToTownClicked(object sender, RoutedEventArgs e)
         {

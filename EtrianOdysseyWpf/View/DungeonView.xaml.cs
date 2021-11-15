@@ -1,4 +1,6 @@
-﻿using System;
+﻿using EtrianOdysseyShared;
+using EtrianOdysseyShared.Maps;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -20,37 +22,26 @@ namespace EtrianOdysseyWpf.View
     /// <summary>
     /// Interaction logic for DungeonView.xaml
     /// </summary>
-    public partial class DungeonView : UserControl, INotifyPropertyChanged
+    public partial class DungeonView : UserControl, IGameView
     {
-        private const int MAP_WIDTH = 30;
-        private const int MAP_HEIGHT = 30;
+        // Viewport should be a 5x5 viewing area of the current map
+        private ObservableCollection<MapCell> _viewPort;
 
-        private ObservableCollection<MapCell> _mapCells;
-
-        public ObservableCollection<MapCell> MapCells
+        public ObservableCollection<MapCell> ViewPort
         {
-            get { return _mapCells; }
+            get { return _viewPort; }
             set
             {
-                _mapCells = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MapCells)));
+                _viewPort = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ViewPort)));
             }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
+        public event EventHandler<TransitionMessage> NewViewRequested;
 
         public DungeonView()
         {
-            MapCells = new ObservableCollection<MapCell>();
-            int total = MAP_WIDTH * MAP_HEIGHT;
-            for (int i = 0; i < total; i++)
-            {
-                var cell = new MapCell();
-                cell.CellClicked += MapCellClicked;
-                MapCells.Add(cell);
-            }
-
             DataContext = this;
             InitializeComponent();
         }
@@ -59,6 +50,22 @@ namespace EtrianOdysseyWpf.View
         private void MapCellClicked(object sender, EventArgs e)
         {
             var mapCell = sender as MapCell;
+        }
+
+        public void Setup(GameSession session)
+        {
+            // Setup map 
+            DungeonMap map = session.CurrentMap;
+
+            ViewPort = new ObservableCollection<MapCell>();
+            for (int i = 0; i < 25; i++)
+            {
+                var cell = new MapCell(map.MapCells[i]);
+                cell.CellClicked += MapCellClicked;
+                ViewPort.Add(cell);
+            }
+
+
         }
     }
 }

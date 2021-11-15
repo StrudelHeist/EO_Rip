@@ -16,6 +16,11 @@
     <None Remove="Images\BattlePoses\GabeBattlePose.png" />
     <None Remove="Images\BattlePoses\JacobBattlePose.png" />
     <None Remove="Images\BattlePoses\JustinBattlePose.png" />
+    <None Remove="Images\MapIcons\Door.png" />
+    <None Remove="Images\MapIcons\Person.png" />
+    <None Remove="Images\MapIcons\Shortcut.png" />
+    <None Remove="Images\MapIcons\StairsDown.png" />
+    <None Remove="Images\MapIcons\StairsUp.png" />
     <None Remove="Images\NPCs\Guildmaster.png" />
   </ItemGroup>
 
@@ -45,6 +50,21 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\BattlePoses\JustinBattlePose.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\MapIcons\Door.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\MapIcons\Person.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\MapIcons\Shortcut.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\MapIcons\StairsDown.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\MapIcons\StairsUp.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\NPCs\Guildmaster.png">
